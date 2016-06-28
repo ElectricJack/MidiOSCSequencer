@@ -1,0 +1,183 @@
+{
+  "name":  "APC40",
+  "width":  14.0,
+  "height": 14.0,
+
+  "controls": [
+    { "type": "button", "name": "[1,1]", "midi": "N:0:53",  "rect": [0.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[2,1]", "midi": "N:1:53",  "rect": [1.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[3,1]", "midi": "N:2:53",  "rect": [2.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[4,1]", "midi": "N:3:53",  "rect": [3.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[5,1]", "midi": "N:4:53",  "rect": [4.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[6,1]", "midi": "N:5:53",  "rect": [5.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[7,1]", "midi": "N:6:53",  "rect": [6.0, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "[8,1]", "midi": "N:7:53",  "rect": [7.0, 0.0, 1.0, 1.0] },
+
+    { "type": "button", "name": "[1,2]", "midi": "N:0:54",  "rect": [0.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[2,2]", "midi": "N:1:54",  "rect": [1.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[3,2]", "midi": "N:2:54",  "rect": [2.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[4,2]", "midi": "N:3:54",  "rect": [3.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[5,2]", "midi": "N:4:54",  "rect": [4.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[6,2]", "midi": "N:5:54",  "rect": [5.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[7,2]", "midi": "N:6:54",  "rect": [6.0, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "[8,2]", "midi": "N:7:54",  "rect": [7.0, 1.0, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "[1,3]", "midi": "N:0:55",  "rect": [0.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[2,3]", "midi": "N:1:55",  "rect": [1.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[3,3]", "midi": "N:2:55",  "rect": [2.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[4,3]", "midi": "N:3:55",  "rect": [3.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[5,3]", "midi": "N:4:55",  "rect": [4.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[6,3]", "midi": "N:5:55",  "rect": [5.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[7,3]", "midi": "N:6:55",  "rect": [6.0, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "[8,3]", "midi": "N:7:55",  "rect": [7.0, 2.0, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "[1,4]", "midi": "N:0:56",  "rect": [0.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[2,4]", "midi": "N:1:56",  "rect": [1.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[3,4]", "midi": "N:2:56",  "rect": [2.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[4,4]", "midi": "N:3:56",  "rect": [3.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[5,4]", "midi": "N:4:56",  "rect": [4.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[6,4]", "midi": "N:5:56",  "rect": [5.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[7,4]", "midi": "N:6:56",  "rect": [6.0, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "[8,4]", "midi": "N:7:56",  "rect": [7.0, 3.0, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "[1,5]", "midi": "N:0:57",  "rect": [0.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[2,5]", "midi": "N:1:57",  "rect": [1.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[3,5]", "midi": "N:2:57",  "rect": [2.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[4,5]", "midi": "N:3:57",  "rect": [3.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[5,5]", "midi": "N:4:57",  "rect": [4.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[6,5]", "midi": "N:5:57",  "rect": [5.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[7,5]", "midi": "N:6:57",  "rect": [6.0, 4.0, 1.0, 1.0] },
+    { "type": "button", "name": "[8,5]", "midi": "N:7:57",  "rect": [7.0, 4.0, 1.0, 1.0] },
+
+    { "type": "button", "name": "Scene Launch 1",    "midi": "N:0:82",  "rect": [8.2, 0.0, 1.0, 1.0] },
+    { "type": "button", "name": "Scene Launch 2",    "midi": "N:0:83",  "rect": [8.2, 1.0, 1.0, 1.0] },
+    { "type": "button", "name": "Scene Launch 3",    "midi": "N:0:84",  "rect": [8.2, 2.0, 1.0, 1.0] },
+    { "type": "button", "name": "Scene Launch 4",    "midi": "N:0:85",  "rect": [8.2, 3.0, 1.0, 1.0] },
+    { "type": "button", "name": "Scene Launch 5",    "midi": "N:0:86",  "rect": [8.2, 4.0, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "Clip Stop 1",       "midi": "N:0:52",  "rect": [0.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 2",       "midi": "N:1:52",  "rect": [1.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 3",       "midi": "N:2:52",  "rect": [2.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 4",       "midi": "N:3:52",  "rect": [3.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 5",       "midi": "N:4:52",  "rect": [4.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 6",       "midi": "N:5:52",  "rect": [5.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 7",       "midi": "N:6:52",  "rect": [6.0, 5.3, 1.0, 1.0] },
+    { "type": "button", "name": "Clip Stop 8",       "midi": "N:7:52",  "rect": [7.0, 5.3, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "Stop All Clips",    "midi": "N:0:81",  "rect": [8.2, 5.3, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "Track Selection 1", "midi": "N:0:51",  "rect": [0.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 2", "midi": "N:1:51",  "rect": [1.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 3", "midi": "N:2:51",  "rect": [2.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 4", "midi": "N:3:51",  "rect": [3.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 5", "midi": "N:4:51",  "rect": [4.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 6", "midi": "N:5:51",  "rect": [5.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 7", "midi": "N:6:51",  "rect": [6.0, 6.6, 1.0, 1.0] },
+    { "type": "button", "name": "Track Selection 8", "midi": "N:7:51",  "rect": [7.0, 6.6, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "Master",            "midi": "N:0:80",  "rect": [8.2, 6.6, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "Activator 1",       "midi": "N:0:50",  "rect": [0.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 2",       "midi": "N:1:50",  "rect": [1.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 3",       "midi": "N:2:50",  "rect": [2.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 4",       "midi": "N:3:50",  "rect": [3.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 5",       "midi": "N:4:50",  "rect": [4.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 6",       "midi": "N:5:50",  "rect": [5.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 7",       "midi": "N:6:50",  "rect": [6.0, 7.9, 1.0, 0.3] },
+    { "type": "button", "name": "Activator 8",       "midi": "N:7:50",  "rect": [7.0, 7.9, 1.0, 0.3] },
+
+    { "type": "button", "name": "Solo / Cue 1",      "midi": "N:0:49",  "rect": [0.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 2",      "midi": "N:1:49",  "rect": [1.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 3",      "midi": "N:2:49",  "rect": [2.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 4",      "midi": "N:3:49",  "rect": [3.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 5",      "midi": "N:4:49",  "rect": [4.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 6",      "midi": "N:5:49",  "rect": [5.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 7",      "midi": "N:6:49",  "rect": [6.0, 8.5, 1.0, 0.3] },
+    { "type": "button", "name": "Solo / Cue 8",      "midi": "N:7:49",  "rect": [7.0, 8.5, 1.0, 0.3] },
+ 
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:0:48",  "rect": [0.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:1:48",  "rect": [1.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:2:48",  "rect": [2.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:3:48",  "rect": [3.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:4:48",  "rect": [4.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:5:48",  "rect": [5.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:6:48",  "rect": [6.0, 9.1, 1.0, 0.3] },
+    { "type": "button", "name": "Record Arm 1",      "midi": "N:7:48",  "rect": [7.0, 9.1, 1.0, 0.3] },
+ 
+    { "type": "knob",  "name": "Track Knob 1",       "midi": "C:0:48",  "rect": [ 9.5, 0.0, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 2",       "midi": "C:0:49",  "rect": [10.5, 0.0, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 3",       "midi": "C:0:50",  "rect": [11.5, 0.0, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 4",       "midi": "C:0:51",  "rect": [12.5, 0.0, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 5",       "midi": "C:0:52",  "rect": [ 9.5, 1.5, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 6",       "midi": "C:0:53",  "rect": [10.5, 1.5, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 7",       "midi": "C:0:54",  "rect": [11.5, 1.5, 1.0, 1.0] },
+    { "type": "knob",  "name": "Track Knob 8",       "midi": "C:0:55",  "rect": [12.5, 1.5, 1.0, 1.0] },
+ 
+    { "type": "button", "name": "Pan",               "midi": "N:0:87",  "rect": [ 9.5, 3.0, 1.0, 0.3] },
+    { "type": "button", "name": "Send A",            "midi": "N:0:88",  "rect": [10.5, 3.0, 1.0, 0.3] },
+    { "type": "button", "name": "Send B",            "midi": "N:0:89",  "rect": [11.5, 3.0, 1.0, 0.3] },
+    { "type": "button", "name": "Send C",            "midi": "N:0:90",  "rect": [12.5, 3.0, 1.0, 0.3] },
+
+
+    { "type": "button", "name": "Shift",             "midi": "N:0:98",  "rect": [ 9.5, 4.0, 1.0, 0.3] },
+
+    { "type": "button", "name": "Bank Select Left",  "midi": "N:0:97",  "rect": [10.7, 3.6, 0.3, 0.6] },
+    { "type": "button", "name": "Bank Select Right", "midi": "N:0:96",  "rect": [11.4, 3.6, 0.3, 0.6] },
+    { "type": "button", "name": "Bank Select Up",    "midi": "N:0:94",  "rect": [11.0, 3.6, 0.4, 0.3] },
+    { "type": "button", "name": "Bank Select Down",  "midi": "N:0:95",  "rect": [11.0, 3.9, 0.4, 0.3] },
+
+    { "type": "button", "name": "Tap Tempo",         "midi": "N:0:99",  "rect": [12.4, 3.6, 0.5, 0.4] },
+    { "type": "button", "name": "Nudge -",           "midi": "N:0:101", "rect": [11.9, 4.0, 0.5, 0.3] },
+    { "type": "button", "name": "Nudge +",           "midi": "N:0:100", "rect": [12.9, 4.0, 0.5, 0.3] },
+
+    { "type": "knob", "name": "Device Control 1",    "midi": "C:0:16",  "rect": [ 9.5, 6.3, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 2",    "midi": "C:0:17",  "rect": [10.5, 6.3, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 3",    "midi": "C:0:18",  "rect": [11.5, 6.3, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 4",    "midi": "C:0:19",  "rect": [12.5, 6.3, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 5",    "midi": "C:0:20",  "rect": [ 9.5, 7.6, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 6",    "midi": "C:0:21",  "rect": [10.5, 7.6, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 7",    "midi": "C:0:22",  "rect": [11.5, 7.6, 1.0, 1.0] },
+    { "type": "knob", "name": "Device Control 8",    "midi": "C:0:23",  "rect": [12.5, 7.6, 1.0, 1.0] },
+
+    { "type": "button", "name": "Clip / Track",      "midi": "N:0:58",  "rect": [ 9.5, 8.9, 1.0, 0.3] },
+    { "type": "button", "name": "Device On / Off",   "midi": "N:0:59",  "rect": [10.5, 8.9, 1.0, 0.3] },
+    { "type": "button", "name": "<--",               "midi": "N:0:60",  "rect": [11.5, 8.9, 1.0, 0.3] },
+    { "type": "button", "name": "-->",               "midi": "N:0:61",  "rect": [12.5, 8.9, 1.0, 0.3] },
+
+    { "type": "button", "name": "Detail View",       "midi": "N:0:62",  "rect": [ 9.5, 9.5, 1.0, 0.3] },
+    { "type": "button", "name": "Rec Quantization",  "midi": "N:0:63",  "rect": [10.5, 9.5, 1.0, 0.3] },
+    { "type": "button", "name": "Midi Overdub",      "midi": "N:0:64",  "rect": [11.5, 9.5, 1.0, 0.3] },
+    { "type": "button", "name": "Metronome",         "midi": "N:0:65",  "rect": [12.5, 9.5, 1.0, 0.3] },
+
+    { "type": "button", "name": "Play",              "midi": "N:0:91",  "rect": [10.0, 10.1, 1.0, 0.4] },
+    { "type": "button", "name": "Stop",              "midi": "N:0:92",  "rect": [11.0, 10.1, 1.0, 0.4] },
+    { "type": "button", "name": "Rec",               "midi": "N:0:93",  "rect": [12.0, 10.1, 1.0, 0.4] },
+
+    { "type": "slider", "name": "A / B",             "midi": "C:0:15",  "rect": [10.0, 11.0, 3.0, 1.0] },
+
+    { "type": "slider", "name": "Level 1",           "midi": "C:0:7",   "rect": [0.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 2",           "midi": "C:1:7",   "rect": [1.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 3",           "midi": "C:2:7",   "rect": [2.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 4",           "midi": "C:3:7",   "rect": [3.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 5",           "midi": "C:4:7",   "rect": [4.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 6",           "midi": "C:5:7",   "rect": [5.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 7",           "midi": "C:6:7",   "rect": [6.0, 9.7, 1.0, 3.0] },
+    { "type": "slider", "name": "Level 8",           "midi": "C:7:7",   "rect": [7.0, 9.7, 1.0, 3.0] },
+
+    { "type": "slider", "name": "Master Level",      "midi": "C:0:14",  "rect": [8.2, 9.7, 1.0, 3.0] },
+    { "type": "knob",   "name": "Cue Level",         "midi": "C:0:47",  "rect": [8.2, 8.1, 1.0, 1.0] },
+
+    
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,80 @@
+
+
+
+
+Channels on the bottom control up to 8 layers of fx
+
+
+
+
+
+
+arena:
+	/composition
+		/recording/recording (Int 0 or 1)
+		/deck[n]/select (Int 0 or 1)
+		/disconnectall (Int 0 or 1)
+		/video
+			/fadeout/values (Float 0.0 - 1.0)
+
+
+	/composition, /layer[n]
+		/select (Int 0 or 1)
+		/bypassed (Int 0 or 1)
+
+		/link1/values (Float 0.0 to 1.0)
+		/link2/values (Float 0.0 to 1.0)
+		/link3/values (Float 0.0 to 1.0)
+		/link4/values (Float 0.0 to 1.0)
+		/link5/values (Float 0.0 to 1.0)
+		/link6/values (Float 0.0 to 1.0)
+		/link7/values (Float 0.0 to 1.0)
+		/link8/values (Float 0.0 to 1.0)
+
+		/autopilot/action (Int 0 to 3)
+
+		/volume/values (Float 0.0 to 1.0)
+		/pan/values (Float 0.0 to 1.0)
+
+		/video
+			/scale/values (Float 0.0 to 1.0)
+			/rotatex/values (Float 0.0 - 1.0) range (-180.0 - 180.0)
+			/rotatey/values (Float 0.0 - 1.0) range (-180.0 - 180.0)
+			/rotatez/values (Float 0.0 - 1.0) range (-180.0 - 180.0)
+
+	/layer[n]
+		/video
+			/opacity/values (Float 0.0 to 1.0)
+
+			/mixeroption1 (Int 0 to 47)  // Blend Mode
+			/mixeroption2 (Int 0 to 47)
+			/mixeroption3 (Int 0 to 47)
+			/mixeroption4 (Int 0 to 47)
+
+			/positionx/values (Float 0.0 - 1.0) range (-16384.0 - 16384.0)
+			/positiony/values (Float 0.0 - 1.0) range (-16384.0 - 16384.0)
+
+			/anchorx/values (Float 0.0 - 1.0) range (-8192.0 - 8192.0)
+			/anchory/values (Float 0.0 - 1.0) range (-8192.0 - 8192.0)
+			/anchorz/values (Float 0.0 - 1.0) range (-8192.0 - 8192.0)
+
+		/clip[n]
+			/preview (Int 0 or 1)
+			/connect (Int 0 or 1)
+		/clear (Int 0 or 1)
+		
+		/solo (Int 0 or 1)
+
+	/track[n]
+		/connect
+
+	/playbackcontroller
+		/bpm (Float 0.0 - 1.0) range (2.0 - 500.0)
+		/timingdec (Int 0 or 1)
+		/timinginc (Int 0 or 1)
+		/timingdividetwo (Int 0 or 1)
+		/timingmulttwo (Int 0 or 1)
+		/tap (Int 0 or 1)
+		/resync (Int 0 or 1)
+		/paused (Int 0 or 1)
+
