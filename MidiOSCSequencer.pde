@@ -12,8 +12,7 @@ MidiController  apc40;
 
 List<List<MidiButton>> buttonCols   = new ArrayList<List<MidiButton>>();
 List<MidiSlider>       faderSliders = new ArrayList<MidiSlider>();
-BeatCounter            beatCounter  = new BeatCounter();
-List<MidiButton>       beatButtons  = new ArrayList<MidiButton>();
+
 OSCConfig              oscConfig    = null;
 
 // Paged clip data
@@ -30,20 +29,32 @@ Map<String, ControllerContext> contextsByName = new TreeMap<String, ControllerCo
 List<ControllerContext>        activeContexts = new ArrayList<ControllerContext>();
 
 
+class ClipPallete {
+
+}
+class ClipPalletes {
+
+}
 
 
 void setup() {
   size(800, 400, P3D);
 
-  MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
+  //MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
+
   //myBus     = new MidiBus(this, "Akai APC40", "Akai APC40"); // Create a new MidiBus object
   myBus     = new MidiBus(this, "APC40 mkII", "APC40 mkII");
-  apc40     = new MidiController(sketchPath("config/apc40-mk2.json"));  
+  apc40     = new MidiController(sketchPath("config/apc40-mk2.json"));
   oscConfig = new OSCConfig(this, sketchPath("config/osc-actions.json"));
+
+  //clips     = new ClipPalletes(sketchPath("config/clip-palettes.json"));
+
   apc40.setRect(0, 0, width, height);
 
   registerContext(new SequencerContext(apc40));
+  registerContext(new BeatCounterContext(apc40));
   activateContext("Sequencer");
+  activateContext("BeatCounter");
 
   // This seems to increase responsiveness on windows
   //  doesn't make much sense though, because the events are processed on their own thread.
@@ -87,11 +98,7 @@ ControllerContext getContext(String contextName) {
 
 /*
 void updateBeatIndex() {
-  int beatIndex = beatCounter.getBeatIndex();
-  for (int i=0; i<4; ++i) {
-    beatButtons.get(i).clearColor();
-  }
-  beatButtons.get(beatIndex % 4).setColor(1);
+
 }
 void updateCol(List<MidiButton> col, float t) {
   for (int i=0; i<col.size(); ++i) {

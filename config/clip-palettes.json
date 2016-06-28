@@ -1,0 +1,19 @@
+{
+  "clip-palettes": [
+    {
+      "r0": [
+        { "layer": 6, "startClip": 1, "name": "Impact" }
+      ],
+      "r1": [
+        { "layer": 2, "startClip": 1, "name": "Mask" }
+      ],
+      "r2": [
+        { "layer": 3, "startClip": 1, "name": "Focus A" }
+        { "layer": 4, "startClip": 1, "name": "Focus B" }
+      ],
+      "r3": [
+        { "layer": 1, "startClip": 1, "name": "Background" }
+      ]
+    }
+  ]
+}

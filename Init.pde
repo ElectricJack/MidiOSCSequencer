@@ -288,23 +288,3 @@ void initButtonPages() {
     });
   }
 }*/
-// -------------------------------------------------------------------- //
-/*
-void initBeatCounter() {
-  apc40.getButtonNamed("Tap Tempo").setNoteOnCallback(new NoteOnCallback() {
-    public void noteOn(MidiButton button) { 
-      beatCounter.tap();
-    }
-  });
-
-  apc40.getButtonNamed("Nudge -").setNoteOnCallback(new NoteOnCallback() {
-    public void noteOn(MidiButton button) { 
-      beatCounter.tapFirst();
-    }
-  });
-
-  beatButtons.add(apc40.getButtonNamed("Pan"));
-  beatButtons.add(apc40.getButtonNamed("Send A"));
-  beatButtons.add(apc40.getButtonNamed("Send B"));
-  beatButtons.add(apc40.getButtonNamed("Send C"));
-}*/

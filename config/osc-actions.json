@@ -1,23 +1,24 @@
 
 {
-	"oscDestinations": [
-		{ "name": "ffx",   "ip": "127.0.0.1", "port": 12000 },
-		{ "name": "arena", "ip": "10.0.1.2", "port": 12400 },
-		{ "name": "unity", "ip": "127.0.0.1", "port": 12800 }
-	],
-	"oscListenPort": 11000,
+  "oscDestinations": [
+    { "name": "ffx",   "ip": "127.0.0.1", "port": 12000 },
+    { "name": "arena", "ip": "10.0.1.2", "port": 12400 },
+    { "name": "unity", "ip": "127.0.0.1", "port": 12800 }
+  ],
+  "oscListenPort": 11000,
 
-	"faders": [
-		
-	],
-	"buttons": [
+  "faders": [
+    { "name": "ab",     "action": { "osc": "arena:/composition/cross/values",         "type":"float" } },
+    { "name": "master", "action": { "osc": "arena:/composition/video/fadeout/values", "type":"float" } },
+  ],
 
-	],
+  "buttons": [
+  ],
 
-	"pages": {
-		"numberOfBanks": 1
-	},
-	"sequencer": {
-		"numberOfBanks": 1
-	}
+  "pages": {
+    "numberOfBanks": 1
+  },
+  "sequencer": {
+    "numberOfBanks": 1
+  }
 }

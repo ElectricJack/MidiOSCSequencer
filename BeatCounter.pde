@@ -1,5 +1,5 @@
 
-class BeatCounter {
+public class BeatCounterContext extends ControllerContext {
   float firstBeatTime     = 0;
   float lastBeatTime      = 0;
   int   beatIndex         = 0;
@@ -7,6 +7,45 @@ class BeatCounter {
   float averageBeatLength = 0;
   int   totalBeatCount    = 0;
   int   lastBeatIndex     = 0;
+
+  List<MidiButton> beatButtons = new ArrayList<MidiButton>();
+
+  public String getName() { return "BeatCounter"; }
+  public BeatCounterContext(MidiController controller) {
+    super(controller);
+  }
+
+  public void attach() {
+    controller.getButtonNamed("Tap Tempo").addNoteOnCallback(new NoteOnCallback() {
+      public void noteOn(MidiButton button) { 
+        tap();
+      }
+    });
+
+    controller.getButtonNamed("Nudge -").addNoteOnCallback(new NoteOnCallback() {
+      public void noteOn(MidiButton button) { 
+        tapFirst();
+      }
+    });
+
+    beatButtons.add(controller.getButtonNamed("D1"));
+    beatButtons.add(controller.getButtonNamed("D2"));
+    beatButtons.add(controller.getButtonNamed("D3"));
+    beatButtons.add(controller.getButtonNamed("D4"));
+  }
+
+  public void detach() {
+    //super();
+  }
+
+  public void update() {
+    int beatIndex = getBeatIndex();
+    for (int i=0; i<4; ++i) {
+      beatButtons.get(i).clearColor();
+    }
+    beatButtons.get(beatIndex % 4).setColor(1);
+  }
+
   
   void tap() {
     float beatTime = millis() / 1000.0;

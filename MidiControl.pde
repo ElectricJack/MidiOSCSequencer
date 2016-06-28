@@ -16,7 +16,25 @@ public class OSCNoteOnCallback implements NoteOnCallback {
   }
 }
 
+public class OSCSliderCallback implements SliderCallback {
+  private String oscAction;
+  OSCSliderCallback(String oscAction) {
+    this.oscAction = oscAction;
+  }
+  public void change(MidiSlider slider, float t) {
+    oscConfig.sendFader(oscAction, t);
+  }
+}
 
+public class OSCKnobCallback implements KnobCallback {
+  private String oscAction;
+  OSCKnobCallback(String oscAction) {
+    this.oscAction = oscAction;
+  }
+  public void change(MidiKnob knob, float t) {
+    oscConfig.sendFader(oscAction, t);
+  }
+}
 
 // ------------------------------------------------------------------------------------------------ //
 public class MidiControl implements Comparable<MidiControl> {

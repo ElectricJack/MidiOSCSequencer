@@ -10,6 +10,8 @@ class Sequence {
 }
 
 
+
+
 public class SequencerContext extends ControllerContext
 {
   final int pageBGColor     = 32;
@@ -29,11 +31,17 @@ public class SequencerContext extends ControllerContext
     void noteOff(MidiButton button) {}
   }
   class ClipButtonHandler implements NoteOnCallback, NoteOffCallback {
-    public ClipButtonHandler() {
+    int clipIndex;
+    public ClipButtonHandler(int clipIndex) {
+      this.clipIndex = clipIndex;
+    }
+    void noteOn(MidiButton button) {
+      activeClipIndex = clipIndex;
 
     }
-    void noteOn(MidiButton button) { }
-    void noteOff(MidiButton button) { }
+    void noteOff(MidiButton button) {
+
+    }
   }
   class SequenceButtonHandler implements NoteOnCallback, NoteOffCallback {
     public SequenceButtonHandler() {
@@ -55,9 +63,18 @@ public class SequencerContext extends ControllerContext
   MidiButton[] sequenceButtons = new MidiButton[16];
 
 
+
+  //ClipPallete[] 
+  // Need quick way of defining clip palettes
+  // 
+
+
   public void attach() {
     bindButtons();
     //setColors();
+
+    bindSliderToOSCAction("A / B",  "ab");
+    bindSliderToOSCAction("Master", "master");
   }
 
   public void update() {
@@ -74,7 +91,8 @@ public class SequencerContext extends ControllerContext
         MidiButton clipButton     = controller.getButtonNamed("["+(x+1)+","+(y+2)+"]");
         MidiButton sequenceButton = controller.getButtonNamed("["+(x+5)+","+(y+2)+"]");
 
-        ClipButtonHandler clipHandler = new ClipButtonHandler();
+        int clipIndex = x+y*4;
+        ClipButtonHandler clipHandler = new ClipButtonHandler(clipIndex);
         clipButton.addNoteOnCallback(clipHandler);
         clipButton.addNoteOffCallback(clipHandler);
         clipButton.setColor(clipBGColor);

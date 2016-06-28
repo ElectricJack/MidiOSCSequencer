@@ -24,4 +24,18 @@ public abstract class ControllerContext
       button.addNoteOnCallback(new OSCNoteOnCallback(oscAction));
     }
   }
+
+  protected void bindSliderToOSCAction(String controllerSlider, String oscAction) {
+    MidiSlider slider = controller.getSliderNamed(controllerSlider);
+    if (slider != null) {
+      slider.addChangeCallback(new OSCSliderCallback(oscAction));
+    }
+  }
+
+  protected void bindKnobToOSCAction(String controllerKnob, String oscAction) {
+    MidiKnob knob = controller.getKnobNamed(controllerKnob);
+    if (knob != null) {
+      knob.addChangeCallback(new OSCKnobCallback(oscAction));
+    }
+  }
 }
