@@ -1,19 +1,12 @@
 {
   "clip-palettes": [
     {
-      "r0": [
-        { "layer": 6, "startClip": 1, "name": "Impact" }
-      ],
-      "r1": [
-        { "layer": 2, "startClip": 1, "name": "Mask" }
-      ],
-      "r2": [
-        { "layer": 3, "startClip": 1, "name": "Focus A" }
-        { "layer": 4, "startClip": 1, "name": "Focus B" }
-      ],
-      "r3": [
-        { "layer": 1, "startClip": 1, "name": "Background" }
-      ]
+      "type": "default",
+      "rows": 4,
+      "row0": [{ "layer": 6, "start": 1, "name": "Impact"  }],
+      "row1": [{ "layer": 2, "start": 1, "name": "Mask"    }],
+      "row2": [{ "layer": 3, "start": 1, "name": "Focus A" }, { "layer": 4, "start": 1, "name": "Focus B" }],
+      "row3": [{ "layer": 1, "start": 1, "name": "Background" }]
     }
   ]
 }

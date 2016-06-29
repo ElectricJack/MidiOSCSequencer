@@ -6,11 +6,24 @@ public class OSCDest {
   public String     ip;
   public int        port;
   public NetAddress address;
+
+  public OscBundle  activeBundle;
+
   public OSCDest(String name, String ip, int port) {
-    this.name    = name;
-    this.ip      = ip;
-    this.port    = port;
-    this.address = new NetAddress(ip, port);
+    this.name         = name;
+    this.ip           = ip;
+    this.port         = port;
+    this.address      = new NetAddress(ip, port);
+    this.activeBundle = new OscBundle();
+  }
+
+  public void flush(OSCConfig parent) {
+    if (this.activeBundle.size() > 0) {
+      try {
+        parent.oscP5.send(this.activeBundle, this.address);
+      } catch(Exception e) {}
+      this.activeBundle.clear();
+    }
   }
 }
 public class OSCAction {
@@ -45,13 +58,35 @@ public class OSCAction {
     }
   }
   
+  public OSCAction(OSCConfig parent, String path, int value) {
+    this.parent = parent;
+    String[] oscPath = path.split(":");
+    this.dest = parent.destinationsByName.get(oscPath[0]);
+    this.path = oscPath[1];
+    this.type = OSC_INT;
+    msg = new OscMessage(this.path);
+    msg.add(value);
+  }
+
+  public OSCAction(OSCConfig parent, String path, float value) {
+    this.parent = parent;
+    String[] oscPath = path.split(":");
+    this.dest = parent.destinationsByName.get(oscPath[0]);
+    this.path = oscPath[1];
+    this.type = OSC_FLOAT;
+    msg = new OscMessage(this.path);
+    msg.add(value);
+  }
+
+
   public void sendFloat(float value) {
     if (this.type == OSC_FLOAT) {
       //println("path: " + this.dest.address + " - " + path + " - " + value);
       //msg.clear();
       msg = new OscMessage(path);
       msg.add(value);
-      parent.oscP5.send(this.msg, this.dest.address);
+      //parent.oscP5.send(this.msg, this.dest.address);
+      this.dest.activeBundle.add(this.msg);
     }
   }
   
@@ -61,59 +96,17 @@ public class OSCAction {
       //msg.clear();
       msg = new OscMessage(path);
       msg.add(value);
-      parent.oscP5.send(this.msg, this.dest.address);
+      //parent.oscP5.send(this.msg, this.dest.address);
+      this.dest.activeBundle.add(this.msg);
     }
   }
   
   public void send() {
-    parent.oscP5.send(this.msg, this.dest.address);
+    //println("send " + this.msg + " to " + this.dest.address);
+    //parent.oscP5.send(this.msg, this.dest.address);
+    this.dest.activeBundle.add(this.msg);
   }
 }
-
-/*
-public class OSCPage {
-  List<OSCAction> clipLaunchActions = new ArrayList<OSCAction>();
-  List<OSCAction> clipLaunchShiftActions = new ArrayList<OSCAction>();
-  List<OSCAction> effectsActions = new ArrayList<OSCAction>();
-  
-  public OSCPage(OSCConfig parent, JSONObject pageMap) {
-    JSONArray effects         = pageMap.getJSONArray("effects");
-    JSONArray clipLaunch      = pageMap.getJSONArray("clipLaunch");
-    JSONArray clipLaunchShift = pageMap.getJSONArray("clipLaunch.shift");
-    
-    for(int i=0, count=clipLaunch.size(); i<count; ++i) {
-      clipLaunchActions.add(new OSCAction(parent, clipLaunch.getJSONObject(i)));
-    }
-    for(int i=0, count=clipLaunchShift.size(); i<count; ++i) {
-      clipLaunchShiftActions.add(new OSCAction(parent, clipLaunchShift.getJSONObject(i)));
-    }
-    for(int i=0, count=effects.size(); i<count; ++i) {
-      effectsActions.add(new OSCAction(parent, effects.getJSONObject(i)));
-    }
-  }
-  
-  // Triggers a clip
-  public void send(int index, boolean shift, int value) {
-    if(shift) {
-      //println("SHIFT!! "+index);
-      if(index >= 0 && index < clipLaunchShiftActions.size()) {
-        clipLaunchShiftActions.get(index).sendInt(value);
-      }
-    } else {
-      if(index >= 0 && index < clipLaunchActions.size()) {
-        clipLaunchActions.get(index).sendInt(value);
-      }
-    }
-  }
-  
-  
-  // Trigger an effect
-  public void sendEffect(int index, int value) {
-    if(index >= 0 && index < effectsActions.size()) {
-      effectsActions.get(index).sendInt(value);
-    }
-  }
-}*/
 
 public class OSCConfig {
   public OscP5 oscP5         = null;
@@ -121,30 +114,11 @@ public class OSCConfig {
   
   public List<OSCDest>          destinations       = new ArrayList<OSCDest>();
   public Map<String, OSCDest>   destinationsByName = new TreeMap<String,OSCDest>();
-  //public List<OSCPage>          clipPages          = new ArrayList<OSCPage>();
   public Map<String, OSCAction> fadersByName       = new TreeMap<String,OSCAction>();
   public Map<String, OSCAction> buttonsByName      = new TreeMap<String,OSCAction>();
+
   
-  // public void sendClip(int pageIndex, int clipIndex, boolean shiftEnabled, int value) {
-  //   if (pageIndex >= 0 && pageIndex < clipPages.size()) {
-  //     try {
-  //       clipPages.get(pageIndex).send(clipIndex, shiftEnabled, value);
-  //     } catch(Exception e) {
-  //       println("Error sending clip message");
-  //     }
-  //   }
-  // }
-  
-  // public void sendEffect(int pageIndex, int effectIndex, boolean enable) {
-  //   if (pageIndex >= 0 && pageIndex < clipPages.size()) {
-  //     try {
-  //       clipPages.get(pageIndex).sendEffect(effectIndex, enable ? 1 : 0);
-  //     } catch(Exception e) {
-  //       println("Error sending effect message");
-  //     }
-  //   }
-  // }
-  
+
   public void sendFader(String faderName, float value) {
     OSCAction fader = fadersByName.get(faderName);
     if (fader != null)
@@ -177,12 +151,7 @@ public class OSCConfig {
       destinationsByName.put(destination.name, destination);
     }
 
-    // Load the page map
-    //JSONArray pageMap = root.getJSONArray("pageMap");
-    //for (int i=0, count=pageMap.size(); i<count; ++i) {
-    //  this.clipPages.add(new OSCPage(this, pageMap.getJSONObject(i)));
-    //}
-    
+
     // Load the faders
     JSONArray faders = root.getJSONArray("faders");
     for (int i=0, count=faders.size(); i<count; ++i) {
@@ -199,4 +168,18 @@ public class OSCConfig {
       buttonsByName.put(buttonName, new OSCAction(this, button.getJSONObject("action")));
     }
   }
+
+  void flushMessages() {
+    for(OSCDest dest : destinations) {
+      dest.flush(this);
+    }
+  }
+
+  OSCAction newAction(String message, int value) {
+    return new OSCAction(this, message, value);
+  }
+  OSCAction newAction(String message, float value) {
+    return new OSCAction(this, message, value);
+  }
 }
+

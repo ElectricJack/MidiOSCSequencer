@@ -1,12 +1,24 @@
 
-class Event {
+public class ClipEvent {
 
 }
 
-class Sequence {
-  int         beatsPerMeasure = 8;
-  int         pageCount = 1;
-  List<Event> events = new ArrayList<Event>();
+public class FloatChannel {
+  float[] values;
+}
+
+public class Sequence {
+  int                 beatsPerMeasure = 8;
+  int                 pageCount       = 1;
+  List<ClipEvent>     clipEvents      = new ArrayList<ClipEvent>();
+  List<FloatChannel>  floatChannels   = new ArrayList<FloatChannel>();
+
+  public Sequence() {
+    //int eventCount = 16*pageCount;
+    //for(int i=0; i<eventCount; ++i) {
+    //  events.add(new Event());
+    //}
+  }
 }
 
 
@@ -18,9 +30,11 @@ public class SequencerContext extends ControllerContext
   final int pageActiveColor = 25;
   final int pageExistColor  = 37;
 
-  final int clipBGColor      = 4;
-  final int clipActiveColor  = 7;
+  final int clipBGColor      = 7;
+  final int clipActiveColor  = 4;
   final int seqBGColor       = 0;
+
+  Sequence activeSequence = new Sequence();
 
 
   class PageButtonHandler implements NoteOnCallback, NoteOffCallback {
@@ -31,17 +45,22 @@ public class SequencerContext extends ControllerContext
     void noteOff(MidiButton button) {}
   }
   class ClipButtonHandler implements NoteOnCallback, NoteOffCallback {
-    int clipIndex;
-    public ClipButtonHandler(int clipIndex) {
-      this.clipIndex = clipIndex;
+    int row, col;
+
+    public ClipButtonHandler(int row, int col) {
+      this.row = row;
+      this.col = col;
+      
     }
     void noteOn(MidiButton button) {
-      activeClipIndex = clipIndex;
-
+      activeClipIndex = row*4 + col;
+      clips.triggerOnActive(row, col);
+      button.setColor(clipActiveColor);
     }
     void noteOff(MidiButton button) {
-
+      button.setColor(clipActiveColor);
     }
+
   }
   class SequenceButtonHandler implements NoteOnCallback, NoteOffCallback {
     public SequenceButtonHandler() {
@@ -91,8 +110,7 @@ public class SequencerContext extends ControllerContext
         MidiButton clipButton     = controller.getButtonNamed("["+(x+1)+","+(y+2)+"]");
         MidiButton sequenceButton = controller.getButtonNamed("["+(x+5)+","+(y+2)+"]");
 
-        int clipIndex = x+y*4;
-        ClipButtonHandler clipHandler = new ClipButtonHandler(clipIndex);
+        ClipButtonHandler clipHandler = new ClipButtonHandler(y,x); // row, col
         clipButton.addNoteOnCallback(clipHandler);
         clipButton.addNoteOffCallback(clipHandler);
         clipButton.setColor(clipBGColor);
