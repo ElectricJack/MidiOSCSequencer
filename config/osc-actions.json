@@ -2,7 +2,7 @@
 {
   "oscDestinations": [
     { "name": "ffx",   "ip": "127.0.0.1", "port": 12000 },
-    { "name": "arena", "ip": "10.0.1.2", "port": 12400 },
+    { "name": "arena", "ip": "10.0.1.2",  "port": 12400 },
     { "name": "unity", "ip": "127.0.0.1", "port": 12800 }
   ],
   "oscListenPort": 11000,

@@ -15,20 +15,9 @@ List<MidiSlider>       faderSliders = new ArrayList<MidiSlider>();
 OSCConfig              oscConfig    = null;
 ClipPalletes           clips        = null;
 
-// Paged clip data
-// MidiButton               lastButtonLeft  = null;
-// MidiButton               lastButtonRight = null;
-// Map<MidiButton, Integer> indexMap        = new TreeMap<MidiButton, Integer>();
-// Map<MidiButton, Integer> effectIndexMap  = new TreeMap<MidiButton, Integer>();
-// int                      currentPage     = 0;
-// boolean                  shiftEnabled    = false;
-// List<MidiButton>         pageButtons = new ArrayList<MidiButton>();
-
 
 Map<String, ControllerContext> contextsByName = new TreeMap<String, ControllerContext>();
 List<ControllerContext>        activeContexts = new ArrayList<ControllerContext>();
-
-
 
 
 
@@ -67,8 +56,6 @@ void draw() {
 }
 
 
-
-
 void registerContext(ControllerContext context) {
   if(!contextsByName.containsKey(context.getName())) {
     contextsByName.put(context.getName(), context);
@@ -89,43 +76,6 @@ ControllerContext getContext(String contextName) {
   }
   return null;
 }
-
-
-/*
-void updateBeatIndex() {
-
-}
-void updateCol(List<MidiButton> col, float t) {
-  for (int i=0; i<col.size(); ++i) {
-    MidiButton b = col.get(i);
-    if (b.name.contains("Track")) continue;
-    if (b.y < apc40.height*(0.8-t*0.8) - 0.5) {
-      b.clearColor();
-    } else {
-      b.setColor(1);
-    }
-  }
-}
-void updatePageButtons() {
-  for (int i=0, count=pageButtons.size(); i<count; ++i) {
-    pageButtons.get(i).clearColor();
-  }
-
-  if ((frameCount / 30) % 2 == 0 && pageButtons.size() > 0) {
-    pageButtons.get(currentPage).setColor(1);
-    
-    if (lastButtonLeft != null) lastButtonLeft.setColor(1);
-    if (lastButtonRight != null) lastButtonRight.setColor(1);
-  } else {
-    clearLastPageButtons();
-  }
-}
-void clearLastPageButtons() {
-  if (lastButtonLeft != null) lastButtonLeft.clearColor();
-  if (lastButtonRight != null) lastButtonRight.clearColor();
-}*/
-
-
 
 
 // ---------------------------------------------------------------------------- //

@@ -18,7 +18,6 @@ public class ClipPalleteRowLayer {
     }
   }
   public void trigger(int col) {
-    println(frameCount);
     connectCol[col].send();
   }
 }
