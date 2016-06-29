@@ -79,6 +79,18 @@ public class BeatCounterContext extends ControllerContext {
     firstBeatTime = millis() / 1000.0;
     lastBeatIndex = 0;
   }
+  
+  int getBeatIndex(int multiple) {
+    if (averageBeatLength == 0) {
+      return 0;
+    }
+
+    float currentTime     = millis() / 1000.0;
+    float timeSinceFirst  = (currentTime - firstBeatTime);
+    float beatsSinceFirst = floor(multiple * timeSinceFirst / averageBeatLength);
+    return (int)(beatsSinceFirst) % (4*multiple);
+  }
+
   int getBeatIndex() {
     if (averageBeatLength == 0) {
       return 0;

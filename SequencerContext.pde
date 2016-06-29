@@ -1,10 +1,22 @@
 
 public class ClipEvent {
+  public int clipIndex = -1;
+  public List<Integer> clips = new ArrayList<Integer>();
+  //public ClipEvent() { }
 
+  public boolean toggleClip(int clipIndex) {
+    if (clips.contains(clipIndex)) {
+      clips.remove(new Integer(clipIndex));
+      return false;
+    } else {
+      clips.add(clipIndex);
+      return true;
+    }
+  }
 }
 
 public class FloatChannel {
-  float[] values;
+  float[] values = new float[256];
 }
 
 public class Sequence {
@@ -14,10 +26,23 @@ public class Sequence {
   List<FloatChannel>  floatChannels   = new ArrayList<FloatChannel>();
 
   public Sequence() {
-    //int eventCount = 16*pageCount;
-    //for(int i=0; i<eventCount; ++i) {
-    //  events.add(new Event());
-    //}
+    resizeClips();
+  }
+
+  public boolean toggleClip(int page, int beatIndex, int clipIndex) {
+    int index = page*16 + beatIndex;
+    if(index >= 0 && index < clipEvents.size()) {
+      ClipEvent clipEvent = clipEvents.get(index);
+      return clipEvent.toggleClip(clipIndex);
+    }
+    return false;
+  }
+
+  public void resizeClips() {
+    int eventCount = 16*pageCount;
+    for(int i=clipEvents.size(); i<eventCount; ++i) {
+      clipEvents.add(new ClipEvent());
+    }
   }
 }
 
@@ -30,44 +55,66 @@ public class SequencerContext extends ControllerContext
   final int pageActiveColor = 25;
   final int pageExistColor  = 37;
 
-  final int clipBGColor      = 7;
-  final int clipActiveColor  = 4;
-  final int seqBGColor       = 0;
+  final int clipBGColor         = 7;
+  final int clipActiveColor     = 4;
+  final int clipHighlightColor  = 5;
+  final int seqBGColor          = 0;
+  final int seqActiveColor      = 34;
+  final int seqCurrentBeatColor = 50;
 
-  Sequence activeSequence = new Sequence();
+
+  int          activePage      = 0;
+  Sequence     activeSequence  = new Sequence();
+  int          activeClipIndex = 0;
+
+  MidiButton[] pageButtons     = new MidiButton[8];
+  MidiButton[] clipButtons     = new MidiButton[16];
+  MidiButton[] sequenceButtons = new MidiButton[16];
+
+
 
 
   class PageButtonHandler implements NoteOnCallback, NoteOffCallback {
     public PageButtonHandler() {
-
+      
     }
     void noteOn(MidiButton button) {}
     void noteOff(MidiButton button) {}
   }
   class ClipButtonHandler implements NoteOnCallback, NoteOffCallback {
     int row, col;
-
     public ClipButtonHandler(int row, int col) {
       this.row = row;
       this.col = col;
-      
     }
     void noteOn(MidiButton button) {
-      activeClipIndex = row*4 + col;
-      clips.triggerOnActive(row, col);
-      button.setColor(clipActiveColor);
+      activateClip(row, col);
+      button.setColor(clipHighlightColor);
     }
     void noteOff(MidiButton button) {
       button.setColor(clipActiveColor);
     }
-
   }
   class SequenceButtonHandler implements NoteOnCallback, NoteOffCallback {
-    public SequenceButtonHandler() {
-      
+    int     beatIndex;
+    boolean active;
+    public SequenceButtonHandler(int beatIndex) {
+      this.beatIndex = beatIndex;
     }
-    void noteOn(MidiButton button) { }
-    void noteOff(MidiButton button) { }
+    void noteOn(MidiButton button) {
+      active = activeSequence.toggleClip(activePage, beatIndex, activeClipIndex);
+      updateColor(button);
+    }
+    void noteOff(MidiButton button) {
+      updateColor(button);
+    }
+    void updateColor(MidiButton button) {
+      if (active) {
+        button.setColor(seqActiveColor);
+      } else {
+        button.setColor(seqBGColor);
+      }
+    }
   }
 
 
@@ -76,17 +123,16 @@ public class SequencerContext extends ControllerContext
 
 
 
-  int          activeClipIndex = 0;
-  MidiButton[] pageButtons     = new MidiButton[8];
-  MidiButton[] clipButtons     = new MidiButton[16];
-  MidiButton[] sequenceButtons = new MidiButton[16];
+  
+  void activateClip(int row, int col) {
+    clipButtons[activeClipIndex].setColor(clipBGColor);
+    activeClipIndex = row*4 + col;
+    clips.triggerOnActive(row, col);
+  }
 
 
 
-  //ClipPallete[] 
-  // Need quick way of defining clip palettes
-  // 
-
+  BeatCounterContext beatCounter;
 
   public void attach() {
     bindButtons();
@@ -94,9 +140,41 @@ public class SequencerContext extends ControllerContext
 
     bindSliderToOSCAction("A / B",  "ab");
     bindSliderToOSCAction("Master", "master");
+    bindButtonToOSCAction("Tap Tempo", "tap");
+    bindButtonToOSCAction("Nudge -",   "nudge-");
+
+    beatCounter = (BeatCounterContext)getContext("BeatCounter");
+
+    clips.attach(controller);
   }
 
+  int lastBeatIndex = 0;
   public void update() {
+    sequenceButtons[lastBeatIndex].setColor(seqBGColor);
+
+    for(int i=0; i<16; ++i) {
+      ClipEvent clipEvent = activeSequence.clipEvents.get(i + activePage*16);
+      if(clipEvent.clips.contains(activeClipIndex)) {
+        sequenceButtons[i].setColor(seqActiveColor);
+      } else {
+        sequenceButtons[i].setColor(seqBGColor);
+      }
+    }
+    //println("");
+
+    int beatIndex = beatCounter.getBeatIndex(4);
+    sequenceButtons[beatIndex].setColor(seqCurrentBeatColor);
+
+    if (beatIndex != lastBeatIndex) {
+      ClipEvent clipEvent = activeSequence.clipEvents.get(beatIndex + activePage*16);
+      for(Integer clipIndex : clipEvent.clips) {
+        int row = clipIndex / 4;
+        int col = clipIndex % 4;
+        clips.triggerOnActive(row, col);
+      }
+    }
+
+    lastBeatIndex = beatIndex;
   }
 
   void bindButtons() {
@@ -116,7 +194,7 @@ public class SequencerContext extends ControllerContext
         clipButton.setColor(clipBGColor);
         clipButtons[x+y*4] = clipButton;
 
-        SequenceButtonHandler sequenceHandler = new SequenceButtonHandler();
+        SequenceButtonHandler sequenceHandler = new SequenceButtonHandler(x+y*4);
         sequenceButton.addNoteOnCallback(sequenceHandler);
         sequenceButton.addNoteOffCallback(sequenceHandler);
         sequenceButton.setColor(seqBGColor);

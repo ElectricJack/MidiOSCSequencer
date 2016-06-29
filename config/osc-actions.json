@@ -13,6 +13,8 @@
   ],
 
   "buttons": [
+    { "name": "tap",    "action": { "osc": "arena:/playbackcontroller/tap",    "type":"int", "value": 1 } },
+    { "name": "nudge-", "action": { "osc": "arena:/playbackcontroller/resync", "type":"int", "value": 1 } }
   ],
 
   "pages": {

@@ -36,8 +36,8 @@ void setup() {
 
   registerContext(new SequencerContext(apc40));
   registerContext(new BeatCounterContext(apc40));
-  activateContext("Sequencer");
   activateContext("BeatCounter");
+  activateContext("Sequencer");
 
   // This seems to increase responsiveness on windows
   //  doesn't make much sense though, because the events are processed on their own thread.
