@@ -19,10 +19,12 @@ public class OSCDest {
 
   public void flush(OSCConfig parent) {
     if (this.activeBundle.size() > 0) {
-      try {
-        parent.oscP5.send(this.activeBundle, this.address);
-      } catch(Exception e) {}
-      this.activeBundle.clear();
+      // try {
+      //   parent.oscP5.send(this.activeBundle, this.address);
+      // } catch(Exception e) {
+      //   e.printStackTrace();
+      // }
+      // this.activeBundle.clear();
     }
   }
 }
@@ -85,8 +87,9 @@ public class OSCAction {
       //msg.clear();
       msg = new OscMessage(path);
       msg.add(value);
-      //parent.oscP5.send(this.msg, this.dest.address);
-      this.dest.activeBundle.add(this.msg);
+      
+      parent.oscP5.send(this.msg, this.dest.address);
+      //this.dest.activeBundle.add(this.msg);
     }
   }
   
@@ -96,15 +99,16 @@ public class OSCAction {
       //msg.clear();
       msg = new OscMessage(path);
       msg.add(value);
-      //parent.oscP5.send(this.msg, this.dest.address);
-      this.dest.activeBundle.add(this.msg);
+
+      parent.oscP5.send(this.msg, this.dest.address);
+      //this.dest.activeBundle.add(this.msg);
     }
   }
   
   public void send() {
-    //println("send " + this.msg + " to " + this.dest.address);
-    //parent.oscP5.send(this.msg, this.dest.address);
-    this.dest.activeBundle.add(this.msg);
+    println("send " + this.msg + " to " + this.dest.address);
+    parent.oscP5.send(this.msg, this.dest.address);
+    //this.dest.activeBundle.add(this.msg);
   }
 }
 

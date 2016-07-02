@@ -2,7 +2,6 @@
 public class ClipEvent {
   public int clipIndex = -1;
   public List<Integer> clips = new ArrayList<Integer>();
-  //public ClipEvent() { }
 
   public boolean toggleClip(int clipIndex) {
     if (clips.contains(clipIndex)) {
@@ -73,7 +72,6 @@ public class SequencerContext extends ControllerContext
 
 
 
-
   class PageButtonHandler implements NoteOnCallback, NoteOffCallback {
     public PageButtonHandler() {
       
@@ -92,6 +90,7 @@ public class SequencerContext extends ControllerContext
       button.setColor(clipHighlightColor);
     }
     void noteOff(MidiButton button) {
+      activateClip(row, -1);
       button.setColor(clipActiveColor);
     }
   }
@@ -126,7 +125,9 @@ public class SequencerContext extends ControllerContext
   
   void activateClip(int row, int col) {
     clipButtons[activeClipIndex].setColor(clipBGColor);
-    activeClipIndex = row*4 + col;
+    if (col >= 0) {
+      activeClipIndex = row*4 + col;
+    }
     clips.triggerOnActive(row, col);
   }
 
@@ -142,6 +143,9 @@ public class SequencerContext extends ControllerContext
     bindSliderToOSCAction("Master", "master");
     bindButtonToOSCAction("Tap Tempo", "tap");
     bindButtonToOSCAction("Nudge -",   "nudge-");
+
+    // Attach layer opacity to sliders
+    //bindSlider("")
 
     beatCounter = (BeatCounterContext)getContext("BeatCounter");
 
@@ -160,13 +164,23 @@ public class SequencerContext extends ControllerContext
         sequenceButtons[i].setColor(seqBGColor);
       }
     }
-    //println("");
 
     int beatIndex = beatCounter.getBeatIndex(4);
     sequenceButtons[beatIndex].setColor(seqCurrentBeatColor);
 
     if (beatIndex != lastBeatIndex) {
-      ClipEvent clipEvent = activeSequence.clipEvents.get(beatIndex + activePage*16);
+      ClipEvent lastClipEvents = activeSequence.clipEvents.get(lastBeatIndex + activePage*16);
+      ClipEvent clipEvent      = activeSequence.clipEvents.get(beatIndex + activePage*16);
+
+      // Disable any previously active clips that are not active any longer
+      for(Integer clipIndex : lastClipEvents.clips) {
+        if (!clipEvent.clips.contains(clipIndex)) {
+          int row = clipIndex / 4;
+          clips.triggerOnActive(row, -1);
+        }
+      }
+
+      // Activate all new clips (redundant ones are handled by dirty flags)
       for(Integer clipIndex : clipEvent.clips) {
         int row = clipIndex / 4;
         int col = clipIndex % 4;

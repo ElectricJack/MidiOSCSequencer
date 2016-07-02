@@ -4,7 +4,14 @@ public class ClipPalleteRowLayer {
   int         layer;
   int         start;
   String      name;
+
   OSCAction[] connectCol;
+  OSCAction   setLayerOpacity;
+
+  int         lastActive = -1;
+  boolean     wasOn = false;
+  float       layerOpacity = 0.5f;
+
 
   public ClipPalleteRowLayer(JSONObject rowLayer) {
     layer = rowLayer.getInt("layer");
@@ -16,9 +23,29 @@ public class ClipPalleteRowLayer {
       int clip = start + i;
       connectCol[i] = oscConfig.newAction("arena:/layer"+layer+"/clip"+clip+"/connect", 1);
     }
+
+    setLayerOpacity = oscConfig.newAction("arena:/layer"+layer+"/video/opacity/values", 1.0);
   }
+
   public void trigger(int col) {
-    connectCol[col].send();
+    if (col == -1) {
+      // Only send the layer off message if this layer was not alreday off
+      if (wasOn) {
+        setLayerOpacity.sendFloat(0.0);
+        wasOn = false;
+      }
+    } else {
+      // Only trigger the clip if it was not the last active clip on this layer
+      if(col != lastActive) {
+        connectCol[col].send();
+        lastActive = col;
+      }
+      // Only send the layer on message if this layer was not already on
+      if (!wasOn) {
+        setLayerOpacity.sendFloat(layerOpacity);
+        wasOn = true;
+      }
+    }
   }
 }
 
@@ -109,9 +136,3 @@ public class ClipPalletes {
     }
   }
 }
-
-
-
-
-
-
