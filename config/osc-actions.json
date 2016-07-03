@@ -14,7 +14,43 @@
 
   "buttons": [
     { "name": "tap",    "action": { "osc": "arena:/playbackcontroller/tap",    "type":"int", "value": 1 } },
-    { "name": "nudge-", "action": { "osc": "arena:/playbackcontroller/resync", "type":"int", "value": 1 } }
+    { "name": "nudge-", "action": { "osc": "arena:/playbackcontroller/resync", "type":"int", "value": 1 } },
+
+    { "name": "solo0on", "action": { "osc": "arena:/layer1/solo", "type":"int", "value": 1 } },
+    { "name": "solo1on", "action": { "osc": "arena:/layer2/solo", "type":"int", "value": 1 } },
+    { "name": "solo2on", "action": { "osc": "arena:/layer3/solo", "type":"int", "value": 1 } },
+    { "name": "solo3on", "action": { "osc": "arena:/layer4/solo", "type":"int", "value": 1 } },
+    { "name": "solo4on", "action": { "osc": "arena:/layer5/solo", "type":"int", "value": 1 } },
+    { "name": "solo5on", "action": { "osc": "arena:/layer6/solo", "type":"int", "value": 1 } },
+    { "name": "solo6on", "action": { "osc": "arena:/layer7/solo", "type":"int", "value": 1 } },
+    { "name": "solo7on", "action": { "osc": "arena:/layer8/solo", "type":"int", "value": 1 } },
+
+    { "name": "blank0on", "action": { "osc": "arena:/layer1/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank1on", "action": { "osc": "arena:/layer2/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank2on", "action": { "osc": "arena:/layer3/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank3on", "action": { "osc": "arena:/layer4/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank4on", "action": { "osc": "arena:/layer5/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank5on", "action": { "osc": "arena:/layer6/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank6on", "action": { "osc": "arena:/layer7/bypassed", "type":"int", "value": 1 } },
+    { "name": "blank7on", "action": { "osc": "arena:/layer8/bypassed", "type":"int", "value": 1 } },
+
+    { "name": "solo0off", "action": { "osc": "arena:/layer1/solo", "type":"int", "value": 0 } },
+    { "name": "solo1off", "action": { "osc": "arena:/layer2/solo", "type":"int", "value": 0 } },
+    { "name": "solo2off", "action": { "osc": "arena:/layer3/solo", "type":"int", "value": 0 } },
+    { "name": "solo3off", "action": { "osc": "arena:/layer4/solo", "type":"int", "value": 0 } },
+    { "name": "solo4off", "action": { "osc": "arena:/layer5/solo", "type":"int", "value": 0 } },
+    { "name": "solo5off", "action": { "osc": "arena:/layer6/solo", "type":"int", "value": 0 } },
+    { "name": "solo6off", "action": { "osc": "arena:/layer7/solo", "type":"int", "value": 0 } },
+    { "name": "solo7off", "action": { "osc": "arena:/layer8/solo", "type":"int", "value": 0 } },
+
+    { "name": "blank0off", "action": { "osc": "arena:/layer1/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank1off", "action": { "osc": "arena:/layer2/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank2off", "action": { "osc": "arena:/layer3/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank3off", "action": { "osc": "arena:/layer4/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank4off", "action": { "osc": "arena:/layer5/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank5off", "action": { "osc": "arena:/layer6/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank6off", "action": { "osc": "arena:/layer7/bypassed", "type":"int", "value": 0 } },
+    { "name": "blank7off", "action": { "osc": "arena:/layer8/bypassed", "type":"int", "value": 0 } }
   ],
 
   "pages": {

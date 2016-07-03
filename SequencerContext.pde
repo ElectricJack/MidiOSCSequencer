@@ -1,7 +1,28 @@
 
-public class ClipEvent {
-  public int clipIndex = -1;
-  public List<Integer> clips = new ArrayList<Integer>();
+public class ClipEvent implements Serializable {
+  
+  public int           clipIndex = -1;
+  public List<Integer> clips     = new ArrayList<Integer>();
+
+  public String       getType() { return "ClipEvent"; }
+  public Serializable clone()   { return new ClipEvent(); }
+  public void serialize(Serializer s) {
+    clipIndex = s.serialize("clipIndex", clipIndex);
+    if (s.isLoading()) {
+      int clipCount = 0;
+      clipCount = s.serialize("clipCount", clipCount);
+      clips.clear();
+      for(int i=0; i<clipCount; ++i) {
+        clips.add(s.serialize("c"+i, 0));
+      }
+    } else {
+      int clipCount = clips.size();
+      s.serialize("clipCount", clipCount);
+      for(int i=0; i<clipCount; ++i) {
+        s.serialize("c"+i, (int)clips.get(i));
+      }
+    }
+  }
 
   public boolean toggleClip(int clipIndex) {
     if (clips.contains(clipIndex)) {
@@ -14,15 +35,33 @@ public class ClipEvent {
   }
 }
 
-public class FloatChannel {
+public class FloatChannel implements Serializable {
   float[] values = new float[256];
+
+  public String       getType() { return "FloatChannel"; }
+  public Serializable clone()   { return new FloatChannel(); }
+  public void serialize(Serializer s) {
+    for(int i=0; i<values.length; ++i) {
+      values[i] = s.serialize("v"+i, values[i]);
+    }
+  }
 }
 
-public class Sequence {
+public class Sequence implements Serializable {
   int                 beatsPerMeasure = 8;
   int                 pageCount       = 1;
   List<ClipEvent>     clipEvents      = new ArrayList<ClipEvent>();
   List<FloatChannel>  floatChannels   = new ArrayList<FloatChannel>();
+
+  public String       getType() { return "Sequence"; }
+  public Serializable clone()   { return new Sequence(); }
+  public void serialize(Serializer s) {
+    beatsPerMeasure = s.serialize("beatsPerMeasure", beatsPerMeasure);
+    pageCount       = s.serialize("pageCount",       pageCount);
+    s.serialize("clipEvents",    clipEvents);
+    s.serialize("floatChannels", floatChannels);
+  }
+
 
   public Sequence() {
     resizeClips();
@@ -45,6 +84,21 @@ public class Sequence {
   }
 }
 
+public class SequenceList implements Serializable
+{
+  public List<Sequence> sequences = new ArrayList<Sequence>();
+
+  public String       getType() { return "SequenceList"; }
+  public Serializable clone()   { return new SequenceList(); }
+  public void serialize(Serializer s) {
+    s.serialize("sequences", sequences);
+  }
+
+  public int      size()          { return sequences.size();     }
+  public Sequence get(int index)  { return sequences.get(index); }
+  public void     add(Sequence s) { sequences.add(s); }
+}
+
 
 
 
@@ -62,14 +116,32 @@ public class SequencerContext extends ControllerContext
   final int seqCurrentBeatColor = 50;
 
 
-  int          activePage      = 0;
-  Sequence     activeSequence  = new Sequence();
-  int          activeClipIndex = 0;
 
-  MidiButton[] pageButtons     = new MidiButton[8];
-  MidiButton[] clipButtons     = new MidiButton[16];
-  MidiButton[] sequenceButtons = new MidiButton[16];
 
+  int                activePage      = 0;
+  Sequence           activeSequence  = new Sequence();
+  int                activeClipIndex = 0;
+  int                activeSequenceIndex = 0;
+  SequenceList       sequences       = new SequenceList();
+
+  MidiButton[]       pageButtons     = new MidiButton[8];
+  MidiButton[]       clipButtons     = new MidiButton[16];
+  MidiButton[]       sequenceButtons = new MidiButton[16];
+  BeatCounterContext beatCounter;
+
+  boolean            changeSequence = true;
+  int                sequenceBank = 0;
+  int                paletteBank  = 0;
+
+  int                lastBeatIndex = 0;
+
+  boolean            sequenceChanged = false;
+
+  
+  boolean[]          enabledLayers = new boolean[8];
+
+
+  JSONSerializer     serializer;
 
 
   class PageButtonHandler implements NoteOnCallback, NoteOffCallback {
@@ -102,6 +174,7 @@ public class SequencerContext extends ControllerContext
     }
     void noteOn(MidiButton button) {
       active = activeSequence.toggleClip(activePage, beatIndex, activeClipIndex);
+      sequenceChanged = true;
       updateColor(button);
     }
     void noteOff(MidiButton button) {
@@ -115,14 +188,106 @@ public class SequencerContext extends ControllerContext
       }
     }
   }
+  class ActiveSequencePaletteHandler implements NoteOnCallback, NoteOffCallback {
+    int index;
+    ActiveSequencePaletteHandler(int index) { this.index = index; }
+    void noteOn(MidiButton button) {
+      // Should we change the sequence?
+      if (changeSequence) {
+        setActiveSequence(sequenceBank*8 + index);
+      } else { // Or the clip palette?
+        clips.setActivePalette(paletteBank*8 + index);
+      }
+    }
+    void noteOff(MidiButton button) {
+      updateSequencePaletteButtons();
+    }
+  }
+  class ActiveBankHandler implements NoteOnCallback, NoteOffCallback {
+    int index;
+    ActiveBankHandler(int index) { this.index = index; } 
+    void noteOn(MidiButton button) {
+      if (changeSequence) {
+        sequenceBank = index;
+      } else {
+        paletteBank = index;
+      }
+    }
+    void noteOff(MidiButton button) {
+      updateSequencePaletteButtons();
+    }
+  }
+
+  class EnableLayerSequenceHandler implements NoteOnCallback, NoteOffCallback {
+    int index;
+    EnableLayerSequenceHandler(int index) { this.index = index; }
+    void noteOn(MidiButton button)  {  }
+    void noteOff(MidiButton button) {}
+  }
+  // class SoloLayerHandler implements NoteOnCallback, NoteOffCallback {
+  //   int index;
+  //   SoloLayerHandler(int index) { this.index = index; }
+  //   void noteOn(MidiButton button)  {}
+  //   void noteOff(MidiButton button) {}
+  // }
+  // class BlankLayerHandler implements NoteOnCallback, NoteOffCallback {
+  //   int index;
+  //   BlankLayerHandler(int index) { this.index = index; }
+  //   void noteOn(MidiButton button)  {}
+  //   void noteOff(MidiButton button) {}
+  // }
+
+  void updateSequencePaletteButtons() {
+    for(int i=0; i<8; ++i) {
+      MidiButton button = controller.getButtonNamed("Clip Stop " + (i+1));
+      button.setColor(0);
+    }
+
+    for(int i=0; i<5; ++i) {
+      MidiButton button = controller.getButtonNamed("Scene Launch " + (i+1));
+      button.setColor(0);
+    }
+
+    int clipIndex, sceneIndex;
+    if(changeSequence) {
+      clipIndex  = activeSequenceIndex % 8 + 1;
+      sceneIndex = sequenceBank + 1;
+    } else {
+      clipIndex  = clips.getActivePaletteIndex() % 8 + 1;
+      sceneIndex = paletteBank + 1;
+    }
+
+    MidiButton button = controller.getButtonNamed("Clip Stop " + clipIndex);
+    button.setColor(1);
+    button = controller.getButtonNamed("Scene Launch " + sceneIndex);
+    button.setColor(1);
+  }
 
 
-  public        SequencerContext(MidiController controller) { super(controller); }
-  public String getName()                                   { return "Sequencer"; }
+
+  public SequencerContext(PApplet parent, MidiController controller) {
+    super(controller);
+    serializer = new JSONSerializer(parent);
+    serializer.registerType(new SequenceList());
+    serializer.registerType(new Sequence());
+    serializer.registerType(new FloatChannel());
+    serializer.registerType(new ClipEvent());
+
+    loadSequences();
+
+    int sequencesToCreate = 8 - (sequences.size() % 8);
+    if(sequences.size() == 0 || sequencesToCreate < 8) {
+      println("Creating " + sequencesToCreate + " sequences.");
+      for(int i=0; i<sequencesToCreate; ++i) {
+        sequences.add(new Sequence());
+      }
+    }
+    setActiveSequence(0);
+  }
+  public String getName() { return "Sequencer"; }
 
 
 
-  
   void activateClip(int row, int col) {
     clipButtons[activeClipIndex].setColor(clipBGColor);
     if (col >= 0) {
@@ -130,29 +295,84 @@ public class SequencerContext extends ControllerContext
     }
     clips.triggerOnActive(row, col);
   }
+  void setActiveSequence(int sequenceIndex) {
+    if (sequenceIndex >=0 && sequenceIndex < sequences.size()) {
+      activeSequence = sequences.get(sequenceIndex);
+      activeSequenceIndex = sequenceIndex;
+    }
+  }
+  void loadSequences() { 
+    File path = new File(sketchPath("sequences.json"));
+    if(path.exists()) {
+      serializer.load(path.getAbsolutePath(), sequences);
+    }
+  }
+  void saveSequences() { 
+    String path = sketchPath("sequences.json");
+    try {
+      serializer.save(path, sequences);
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
 
 
-
-  BeatCounterContext beatCounter;
 
   public void attach() {
     bindButtons();
     //setColors();
 
-    bindSliderToOSCAction("A / B",  "ab");
-    bindSliderToOSCAction("Master", "master");
-    bindButtonToOSCAction("Tap Tempo", "tap");
-    bindButtonToOSCAction("Nudge -",   "nudge-");
+    bindSliderToOSCAction("A / B",        "ab");
+    bindSliderToOSCAction("Master Level", "master");
+    bindButtonToOSCAction("Tap Tempo",    "tap");
+    bindButtonToOSCAction("Nudge -",      "nudge-");
+
+    // Toggle activating either different
+    bindButton("Sends", new NoteOnCallback() {
+      public void noteOn(MidiButton button) {
+        changeSequence = true;
+        updateSequencePaletteButtons();
+      }
+    }, new NoteOffCallback() {
+      public void noteOff(MidiButton button) { 
+        changeSequence = false;
+        updateSequencePaletteButtons();
+      }
+    });
+
+    for(int i=0; i<8; ++i) {
+      int number = i+1;
+      EnableLayerSequenceHandler handler = new EnableLayerSequenceHandler(i);
+      bindButton("Activator " + number, handler, handler);
+      bindButtonToOSCAction("Solo " + number,   "solo"+i+"on", "solo"+i+"off");
+      bindButtonToOSCAction("Record " + number, "blank"+i+"on", "blank"+i+"off");
+      //bindButtonToOSCAction("AB " + number, );
+    }
+
+
+    // Bind sequence/palette handler buttons
+    for(int i=0; i<8; ++i) {
+      ActiveSequencePaletteHandler handler = new ActiveSequencePaletteHandler(i);
+      bindButton("Clip Stop " + (i+1), handler, handler);
+    }
+
+    // Bind bank handler buttons
+    for(int i=0; i<5; ++i) {
+      ActiveBankHandler handler = new ActiveBankHandler(i);
+      bindButton("Scene Launch " + (i+1), handler, handler);
+    }
+    
 
     // Attach layer opacity to sliders
-    //bindSlider("")
+    bindSlider("Level 1", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(0, t); } });
+    bindSlider("Level 2", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(1, t); } });
+    bindSlider("Level 3", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(2, t); } });
+    bindSlider("Level 4", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(3, t); } });
 
     beatCounter = (BeatCounterContext)getContext("BeatCounter");
-
-    clips.attach(controller);
   }
 
-  int lastBeatIndex = 0;
+  
   public void update() {
     sequenceButtons[lastBeatIndex].setColor(seqBGColor);
 
@@ -165,12 +385,17 @@ public class SequencerContext extends ControllerContext
       }
     }
 
+
     int beatIndex = beatCounter.getBeatIndex(4);
     sequenceButtons[beatIndex].setColor(seqCurrentBeatColor);
 
     if (beatIndex != lastBeatIndex) {
       ClipEvent lastClipEvents = activeSequence.clipEvents.get(lastBeatIndex + activePage*16);
       ClipEvent clipEvent      = activeSequence.clipEvents.get(beatIndex + activePage*16);
+
+      for(int i=0; i<16; ++i) {
+        clipButtons[i].setColor(i == activeClipIndex? clipActiveColor : clipBGColor);
+      }
 
       // Disable any previously active clips that are not active any longer
       for(Integer clipIndex : lastClipEvents.clips) {
@@ -185,10 +410,17 @@ public class SequencerContext extends ControllerContext
         int row = clipIndex / 4;
         int col = clipIndex % 4;
         clips.triggerOnActive(row, col);
+        clipButtons[clipIndex].setColor(clipHighlightColor);
       }
     }
 
     lastBeatIndex = beatIndex;
+
+    // Save any changes to sequences every 120 frames
+    if (frameCount % 120 == 0 && sequenceChanged) {
+      saveSequences();
+      sequenceChanged = false;
+    }
   }
 
   void bindButtons() {

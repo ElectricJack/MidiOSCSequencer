@@ -7,6 +7,22 @@
       "row1": [{ "layer": 2, "start": 1, "name": "Mask"    }],
       "row2": [{ "layer": 3, "start": 1, "name": "Focus A" }, { "layer": 4, "start": 1, "name": "Focus B" }],
       "row3": [{ "layer": 1, "start": 1, "name": "Background" }]
+    },
+    {
+      "type": "default",
+      "rows": 4,
+      "row0": [{ "layer": 6, "start": 5, "name": "Impact"  }],
+      "row1": [{ "layer": 2, "start": 5, "name": "Mask"    }],
+      "row2": [{ "layer": 3, "start": 5, "name": "Focus A" }, { "layer": 4, "start": 5, "name": "Focus B" }],
+      "row3": [{ "layer": 1, "start": 5, "name": "Background" }]
+    },
+    {
+      "type": "default",
+      "rows": 4,
+      "row0": [{ "layer": 6, "start": 9, "name": "Impact"  }],
+      "row1": [{ "layer": 2, "start": 9, "name": "Mask"    }],
+      "row2": [{ "layer": 3, "start": 9, "name": "Focus A" }, { "layer": 4, "start": 9, "name": "Focus B" }],
+      "row3": [{ "layer": 1, "start": 9, "name": "Background" }]
     }
   ]
 }

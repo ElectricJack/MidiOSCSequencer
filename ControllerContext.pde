@@ -18,24 +18,44 @@ public abstract class ControllerContext
   public abstract void update();
 
 
-  protected void bindButtonToOSCAction(String controllerButton, String oscAction) {
-    MidiButton button = controller.getButtonNamed(controllerButton);
-    if (button != null) {
-      button.addNoteOnCallback(new OSCNoteOnCallback(oscAction));
-    }
+  protected void bindButtonToOSCAction(String buttonName, String oscAction) {
+    bindButton(buttonName, new OSCNoteOnCallback(oscAction));
   }
 
-  protected void bindSliderToOSCAction(String controllerSlider, String oscAction) {
-    MidiSlider slider = controller.getSliderNamed(controllerSlider);
+  protected void bindButtonToOSCAction(String buttonName, String oscActionOn, String oscActionOff) {
+    bindButton(buttonName, new OSCNoteOnCallback(oscActionOn), new OSCNoteOffCallback(oscActionOff));
+  }
+
+  protected void bindSliderToOSCAction(String sliderName, String oscAction) {
+    bindSlider(sliderName, new OSCSliderCallback(oscAction));
+  }
+  protected void bindKnobToOSCAction(String knobName, String oscAction) {
+    bindKnob(knobName, new OSCKnobCallback(oscAction));
+  }
+  protected void bindSlider(String sliderName, SliderCallback callback) {
+    MidiSlider slider = controller.getSliderNamed(sliderName);
     if (slider != null) {
-      slider.addChangeCallback(new OSCSliderCallback(oscAction));
+      slider.addChangeCallback(callback);
+    }
+  }
+  protected void bindKnob(String knobName, KnobCallback callback) {
+    MidiKnob knob = controller.getKnobNamed(knobName);
+    if (knob != null) {
+      knob.addChangeCallback(callback);
     }
   }
 
-  protected void bindKnobToOSCAction(String controllerKnob, String oscAction) {
-    MidiKnob knob = controller.getKnobNamed(controllerKnob);
-    if (knob != null) {
-      knob.addChangeCallback(new OSCKnobCallback(oscAction));
+  protected void bindButton(String buttonName, NoteOnCallback callbackOn) {
+    bindButton(buttonName, callbackOn, null);
+  }
+  protected void bindButton(String buttonName, NoteOnCallback callbackOn, NoteOffCallback callbackOff) {
+    MidiButton button = controller.getButtonNamed(buttonName);
+    if (button != null) {
+      button.addNoteOnCallback(callbackOn);
+      if (callbackOff != null) {
+        button.addNoteOffCallback(callbackOff);
+      }
     }
   }
+
 }

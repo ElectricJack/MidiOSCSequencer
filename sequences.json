@@ -1,0 +1,1201 @@
+{"root": {
+  "type": "SequenceList",
+  "sequences": [
+    {
+      "0": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            }
+          },
+          {
+            "11": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "1": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8
+            }
+          },
+          {
+            "11": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "2": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 8,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13,
+              "c1": 9,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13,
+              "c1": 9,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13,
+              "c1": 9,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13,
+              "c1": 9,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 10,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 10,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 10,
+              "c1": 4
+            }
+          },
+          {
+            "11": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 10,
+              "c1": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 15,
+              "c1": 11,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 15,
+              "c1": 11,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 15,
+              "c1": 11,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 15,
+              "c1": 11,
+              "c2": 4
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "3": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            }
+          },
+          {
+            "11": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "4": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            }
+          },
+          {
+            "11": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "5": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            }
+          },
+          {
+            "11": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "6": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            }
+          },
+          {
+            "11": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 0,
+              "clipIndex": -1,
+              "type": "ClipEvent"
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    },
+    {
+      "7": {
+        "beatsPerMeasure": 8,
+        "pageCount": 1,
+        "floatChannels": [],
+        "type": "Sequence",
+        "clipEvents": [
+          {
+            "0": {
+              "c3": 13,
+              "clipCount": 4,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 11,
+              "c2": 5
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "1": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 11,
+              "c1": 5,
+              "c2": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "2": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 11
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "3": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 11
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "4": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 5
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "5": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 5
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "6": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "7": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "8": {
+              "c3": 13,
+              "clipCount": 4,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 11,
+              "c2": 5
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "9": {
+              "clipCount": 3,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 11,
+              "c1": 5,
+              "c2": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "type": "ClipEvent",
+            "10": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 11
+            }
+          },
+          {
+            "11": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 11
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "12": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 5
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "13": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 5
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "14": {
+              "clipCount": 2,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 0,
+              "c1": 13
+            },
+            "type": "ClipEvent"
+          },
+          {
+            "15": {
+              "clipCount": 1,
+              "clipIndex": -1,
+              "type": "ClipEvent",
+              "c0": 13
+            },
+            "type": "ClipEvent"
+          }
+        ]
+      },
+      "type": "Sequence"
+    }
+  ]
+}}

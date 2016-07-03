@@ -7,6 +7,9 @@ import oscP5.*;
 import netP5.*;
 
 
+import com.fieldfx.serialize.*;
+
+
 MidiBus         myBus; // The MidiBus
 MidiController  apc40;
 
@@ -30,11 +33,11 @@ void setup() {
   myBus     = new MidiBus(this, "APC40 mkII", "APC40 mkII");
   apc40     = new MidiController(sketchPath("config/apc40-mk2.json"));
   oscConfig = new OSCConfig(this, sketchPath("config/osc-actions.json"));
-  clips     = new ClipPalletes(this, sketchPath("config/clip-palettes.json"));
+  clips     = new ClipPalletes(sketchPath("config/clip-palettes.json"));
 
   apc40.setRect(0, 0, width, height);
 
-  registerContext(new SequencerContext(apc40));
+  registerContext(new SequencerContext(this, apc40));
   registerContext(new BeatCounterContext(apc40));
   activateContext("BeatCounter");
   activateContext("Sequencer");

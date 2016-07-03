@@ -10,8 +10,13 @@ public class ClipPalleteRowLayer {
 
   int         lastActive = -1;
   boolean     wasOn = false;
-  float       layerOpacity = 0.5f;
+  float       lastOpacity = 0;
 
+  public void setDirty() {
+    lastOpacity = 0.f;
+    lastActive = -1;
+    wasOn = false;
+  }
 
   public ClipPalleteRowLayer(JSONObject rowLayer) {
     layer = rowLayer.getInt("layer");
@@ -27,7 +32,7 @@ public class ClipPalleteRowLayer {
     setLayerOpacity = oscConfig.newAction("arena:/layer"+layer+"/video/opacity/values", 1.0);
   }
 
-  public void trigger(int col) {
+  public void trigger(int col, float layerOpacity) {
     if (col == -1) {
       // Only send the layer off message if this layer was not alreday off
       if (wasOn) {
@@ -36,13 +41,16 @@ public class ClipPalleteRowLayer {
       }
     } else {
       // Only trigger the clip if it was not the last active clip on this layer
-      if(col != lastActive) {
-        connectCol[col].send();
+      if (col != lastActive) {
+        if (layerOpacity > 0.01f) {
+          connectCol[col].send();
+        }
         lastActive = col;
       }
       // Only send the layer on message if this layer was not already on
-      if (!wasOn) {
+      if (!wasOn || lastOpacity != layerOpacity) {
         setLayerOpacity.sendFloat(layerOpacity);
+        lastOpacity = layerOpacity;
         wasOn = true;
       }
     }
@@ -57,9 +65,13 @@ public class ClipPalleteRow {
       layers.add(new ClipPalleteRowLayer(rowLayer));
     }
   }
-  public void trigger(int col) {
+  public void trigger(int col, float opacity) {
     for(ClipPalleteRowLayer layer : layers)
-      layer.trigger(col);
+      layer.trigger(col, opacity);
+  }
+  public void setDirty() {
+    for(ClipPalleteRowLayer layer : layers)
+      layer.setDirty();
   }
 }
 
@@ -87,23 +99,25 @@ public class ClipPallete {
     return layers;
   }
 
-  public void trigger(int row, int col) {
-    rows[row].trigger(col);
+  public void trigger(int row, int col, float opacity) {
+    rows[row].trigger(col, opacity);
   }
 
-  public void attach(MidiController controller) {
-    // for(int row=0; row<4; ++row) {
-    //   int[] layers = getLayersForRow(row);
-    //   controller.add()
-    // }
+  public void setDirty() {
+    for(int i=0; i<rows.length; ++i) {
+      rows[i].setDirty();
+    }
   }
+
 }
 
 public class ClipPalletes {
   int activePalette = 0;
   List<ClipPallete> palettes = new ArrayList<ClipPallete>();
+  float[]           opacity  = new float[4];
 
-  public ClipPalletes(PApplet parent, String filePath) {
+
+  public ClipPalletes(String filePath) {
     JSONObject root     = loadJSONObject(filePath);
     JSONArray  palettes = root.getJSONArray("clip-palettes");
 
@@ -113,6 +127,24 @@ public class ClipPalletes {
     }
   }
 
+  public int getActivePaletteIndex() {
+    return activePalette;
+  }
+  // 8 palettes per bank
+  public int getBankCount() {
+    return (int)ceil(palettes.size() / 8.0);
+  }
+
+  public void setActivePalette(int paletteIndex) {
+    if(paletteIndex >= 0 && paletteIndex < palettes.size()) {
+      activePalette = paletteIndex;
+
+      ClipPallete palette = palettes.get(activePalette);
+      palette.setDirty();
+    }
+  }
+
+
   int[] getLayersForRow(int row) {
     if(activePalette >= 0 && activePalette < palettes.size()) {
       ClipPallete palette = palettes.get(activePalette);
@@ -121,18 +153,14 @@ public class ClipPalletes {
     return new int[0];
   }
 
-  public void attach(MidiController controller) {
-    if(activePalette >= 0 && activePalette < palettes.size()) {
-      palettes.get(activePalette).attach(controller);
-    }
+
+  public void setOpacity(int row, float value) {
+    opacity[row] = value;
   }
-
-
-
   public void triggerOnActive(int row, int col) {
     if(activePalette >= 0 && activePalette < palettes.size()) {
       ClipPallete palette = palettes.get(activePalette);
-      palette.trigger(row,col);
+      palette.trigger(row, col, opacity[row]);
     }
   }
 }

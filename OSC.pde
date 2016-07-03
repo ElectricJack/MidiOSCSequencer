@@ -19,12 +19,13 @@ public class OSCDest {
 
   public void flush(OSCConfig parent) {
     if (this.activeBundle.size() > 0) {
-      // try {
-      //   parent.oscP5.send(this.activeBundle, this.address);
-      // } catch(Exception e) {
-      //   e.printStackTrace();
-      // }
-      // this.activeBundle.clear();
+      try {
+        parent.oscP5.send(this.activeBundle, this.address);
+      } catch(Exception e) {
+        e.printStackTrace();
+      }
+      //this.activeBundle.clear();
+      this.activeBundle = new OscBundle();
     }
   }
 }
@@ -34,8 +35,9 @@ public class OSCAction {
   private OSCDest    dest     = null;
   private OscMessage msg      = null;
   private String     path     = "";
+  private boolean    useBundles;
   
-  public OSCAction(OSCConfig parent, JSONObject data) {
+  public OSCAction(OSCConfig parent, JSONObject data, boolean useBundles) {
     this.parent = parent;
     String[] oscPath = data.getString("osc").split(":");
     
@@ -58,9 +60,11 @@ public class OSCAction {
         msg.add(value);
       }
     }
+
+    this.useBundles = useBundles;
   }
   
-  public OSCAction(OSCConfig parent, String path, int value) {
+  public OSCAction(OSCConfig parent, String path, int value, boolean useBundles) {
     this.parent = parent;
     String[] oscPath = path.split(":");
     this.dest = parent.destinationsByName.get(oscPath[0]);
@@ -68,9 +72,11 @@ public class OSCAction {
     this.type = OSC_INT;
     msg = new OscMessage(this.path);
     msg.add(value);
+
+    this.useBundles = useBundles;
   }
 
-  public OSCAction(OSCConfig parent, String path, float value) {
+  public OSCAction(OSCConfig parent, String path, float value, boolean useBundles) {
     this.parent = parent;
     String[] oscPath = path.split(":");
     this.dest = parent.destinationsByName.get(oscPath[0]);
@@ -78,6 +84,8 @@ public class OSCAction {
     this.type = OSC_FLOAT;
     msg = new OscMessage(this.path);
     msg.add(value);
+
+    this.useBundles = useBundles;
   }
 
 
@@ -88,8 +96,11 @@ public class OSCAction {
       msg = new OscMessage(path);
       msg.add(value);
       
-      parent.oscP5.send(this.msg, this.dest.address);
-      //this.dest.activeBundle.add(this.msg);
+      if (useBundles) {
+        this.dest.activeBundle.add(this.msg);
+      } else {
+        parent.oscP5.send(this.msg, this.dest.address);
+      }
     }
   }
   
@@ -100,21 +111,29 @@ public class OSCAction {
       msg = new OscMessage(path);
       msg.add(value);
 
-      parent.oscP5.send(this.msg, this.dest.address);
-      //this.dest.activeBundle.add(this.msg);
+      if (useBundles) {
+        this.dest.activeBundle.add(this.msg);
+      } else {
+        parent.oscP5.send(this.msg, this.dest.address);
+      }
     }
   }
   
   public void send() {
     println("send " + this.msg + " to " + this.dest.address);
-    parent.oscP5.send(this.msg, this.dest.address);
-    //this.dest.activeBundle.add(this.msg);
+    if (useBundles) {
+      this.dest.activeBundle.add(this.msg);
+    } else {
+      parent.oscP5.send(this.msg, this.dest.address);
+    }
   }
 }
 
 public class OSCConfig {
   public OscP5 oscP5         = null;
   public int   oscListenPort = 0;
+
+  private boolean useBundles = true;
   
   public List<OSCDest>          destinations       = new ArrayList<OSCDest>();
   public Map<String, OSCDest>   destinationsByName = new TreeMap<String,OSCDest>();
@@ -161,7 +180,7 @@ public class OSCConfig {
     for (int i=0, count=faders.size(); i<count; ++i) {
       JSONObject fader     = faders.getJSONObject(i);
       String     faderName = fader.getString("name");
-      fadersByName.put(faderName, new OSCAction(this, fader.getJSONObject("action")));
+      fadersByName.put(faderName, new OSCAction(this, fader.getJSONObject("action"), useBundles));
     }
     
     // Load the buttons
@@ -169,21 +188,23 @@ public class OSCConfig {
     for (int i=0, count=buttons.size(); i<count; ++i) {
       JSONObject button     = buttons.getJSONObject(i);
       String     buttonName = button.getString("name");
-      buttonsByName.put(buttonName, new OSCAction(this, button.getJSONObject("action")));
+      buttonsByName.put(buttonName, new OSCAction(this, button.getJSONObject("action"), useBundles));
     }
   }
 
   void flushMessages() {
-    for(OSCDest dest : destinations) {
-      dest.flush(this);
+    if (useBundles) {
+      for(OSCDest dest : destinations) {
+        dest.flush(this);
+      }
     }
   }
 
   OSCAction newAction(String message, int value) {
-    return new OSCAction(this, message, value);
+    return new OSCAction(this, message, value, useBundles);
   }
   OSCAction newAction(String message, float value) {
-    return new OSCAction(this, message, value);
+    return new OSCAction(this, message, value, useBundles);
   }
 }
 

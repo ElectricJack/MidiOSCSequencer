@@ -15,6 +15,17 @@ public class OSCNoteOnCallback implements NoteOnCallback {
     oscConfig.sendButton(oscAction);
   }
 }
+public class OSCNoteOffCallback implements NoteOffCallback {
+  private String oscAction;
+
+  OSCNoteOffCallback(String oscAction) {
+    this.oscAction = oscAction;
+  }
+  public void noteOff(MidiButton button) {
+    oscConfig.sendButton(oscAction);
+  }
+}
+
 
 public class OSCSliderCallback implements SliderCallback {
   private String oscAction;
