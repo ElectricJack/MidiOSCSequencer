@@ -64,7 +64,7 @@ public class Sequence implements Serializable {
 
 
   public Sequence() {
-    resizeClips();
+    resize(1);
   }
 
   public boolean toggleClip(int page, int beatIndex, int clipIndex) {
@@ -76,7 +76,15 @@ public class Sequence implements Serializable {
     return false;
   }
 
-  public void resizeClips() {
+  public ClipEvent getClip(int index) {
+    if(index >=0 && index < clipEvents.size()) {
+      return clipEvents.get(index);
+    }
+    return null;
+  }
+  public int  getPageCount() { return pageCount; }
+  public void resize(int pageCount) {
+    this.pageCount = pageCount;
     int eventCount = 16*pageCount;
     for(int i=clipEvents.size(); i<eventCount; ++i) {
       clipEvents.add(new ClipEvent());
@@ -116,8 +124,6 @@ public class SequencerContext extends ControllerContext
   final int seqCurrentBeatColor = 50;
 
 
-
-
   int                activePage      = 0;
   Sequence           activeSequence  = new Sequence();
   int                activeClipIndex = 0;
@@ -136,20 +142,31 @@ public class SequencerContext extends ControllerContext
   int                lastBeatIndex = 0;
 
   boolean            sequenceChanged = false;
-
   
   boolean[]          enabledLayers = new boolean[8];
-
 
   JSONSerializer     serializer;
 
 
+
+
   class PageButtonHandler implements NoteOnCallback, NoteOffCallback {
-    public PageButtonHandler() {
-      
+    int index;
+    int startHoldTime;
+    public PageButtonHandler(int index) { this.index = index; }
+    public void noteOn(MidiButton button) {
+      startHoldTime = millis();
     }
-    void noteOn(MidiButton button) {}
-    void noteOff(MidiButton button) {}
+    public void noteOff(MidiButton button) {
+      int   endHoldTime = millis();
+      float timeElapsed = (endHoldTime - startHoldTime) / 1000.0;
+      if (timeElapsed > 1.0) {
+        resizeSequenceToPages(index+1);
+      } else {
+        activePage = index;
+      }
+      updatePageColors();
+    }
   }
   class ClipButtonHandler implements NoteOnCallback, NoteOffCallback {
     int row, col;
@@ -157,11 +174,11 @@ public class SequencerContext extends ControllerContext
       this.row = row;
       this.col = col;
     }
-    void noteOn(MidiButton button) {
+    public void noteOn(MidiButton button) {
       activateClip(row, col);
       button.setColor(clipHighlightColor);
     }
-    void noteOff(MidiButton button) {
+    public void noteOff(MidiButton button) {
       activateClip(row, -1);
       button.setColor(clipActiveColor);
     }
@@ -172,12 +189,12 @@ public class SequencerContext extends ControllerContext
     public SequenceButtonHandler(int beatIndex) {
       this.beatIndex = beatIndex;
     }
-    void noteOn(MidiButton button) {
+    public void noteOn(MidiButton button) {
       active = activeSequence.toggleClip(activePage, beatIndex, activeClipIndex);
       sequenceChanged = true;
       updateColor(button);
     }
-    void noteOff(MidiButton button) {
+    public void noteOff(MidiButton button) {
       updateColor(button);
     }
     void updateColor(MidiButton button) {
@@ -190,8 +207,8 @@ public class SequencerContext extends ControllerContext
   }
   class ActiveSequencePaletteHandler implements NoteOnCallback, NoteOffCallback {
     int index;
-    ActiveSequencePaletteHandler(int index) { this.index = index; }
-    void noteOn(MidiButton button) {
+    public ActiveSequencePaletteHandler(int index) { this.index = index; }
+    public void noteOn(MidiButton button) {
       // Should we change the sequence?
       if (changeSequence) {
         setActiveSequence(sequenceBank*8 + index);
@@ -199,43 +216,54 @@ public class SequencerContext extends ControllerContext
         clips.setActivePalette(paletteBank*8 + index);
       }
     }
-    void noteOff(MidiButton button) {
+    public void noteOff(MidiButton button) {
       updateSequencePaletteButtons();
+      if (changeSequence) {
+        activePage = 0;
+        updatePageColors();
+      }
     }
   }
   class ActiveBankHandler implements NoteOnCallback, NoteOffCallback {
     int index;
-    ActiveBankHandler(int index) { this.index = index; } 
-    void noteOn(MidiButton button) {
+    public ActiveBankHandler(int index) { this.index = index; } 
+    public void noteOn(MidiButton button) {
       if (changeSequence) {
         sequenceBank = index;
       } else {
         paletteBank = index;
       }
     }
-    void noteOff(MidiButton button) {
+    public void noteOff(MidiButton button) {
       updateSequencePaletteButtons();
     }
   }
-
   class EnableLayerSequenceHandler implements NoteOnCallback, NoteOffCallback {
     int index;
-    EnableLayerSequenceHandler(int index) { this.index = index; }
-    void noteOn(MidiButton button)  {  }
-    void noteOff(MidiButton button) {}
+    public EnableLayerSequenceHandler(int index) { this.index = index; }
+    void noteOn(MidiButton button)  {} //@TODO
+    void noteOff(MidiButton button) {} //@TODO
   }
-  // class SoloLayerHandler implements NoteOnCallback, NoteOffCallback {
-  //   int index;
-  //   SoloLayerHandler(int index) { this.index = index; }
-  //   void noteOn(MidiButton button)  {}
-  //   void noteOff(MidiButton button) {}
-  // }
-  // class BlankLayerHandler implements NoteOnCallback, NoteOffCallback {
-  //   int index;
-  //   BlankLayerHandler(int index) { this.index = index; }
-  //   void noteOn(MidiButton button)  {}
-  //   void noteOff(MidiButton button) {}
-  // }
+
+  class ClipsChangeOpacityHandler implements SliderCallback{
+    int index;
+    public ClipsChangeOpacityHandler(int index) { this.index = index; }
+    public void change(MidiSlider slider, float t) {
+      clips.setOpacity(index, t);
+    }
+  }
+  class ClipsSoloHandler implements NoteOnCallback, NoteOffCallback {
+    int index;
+    public ClipsSoloHandler(int index) { this.index = index; }
+    public void noteOn(MidiButton button)  { clips.soloRow(index, true); }
+    public void noteOff(MidiButton button) { clips.soloRow(index, false); }
+  }
+  class ClipsBlankHandler implements NoteOnCallback, NoteOffCallback {
+    int index;
+    public ClipsBlankHandler(int index) { this.index = index; }
+    public void noteOn(MidiButton button)  { clips.blankRow(index, true); }
+    public void noteOff(MidiButton button) { clips.blankRow(index, false); }
+  }
 
   void updateSequencePaletteButtons() {
     for(int i=0; i<8; ++i) {
@@ -262,7 +290,24 @@ public class SequencerContext extends ControllerContext
     button = controller.getButtonNamed("Scene Launch " + sceneIndex);
     button.setColor(1);
   }
+  void updatePageColors() {
+    int pageCount = activeSequence.getPageCount();
+    for(int i=0; i<8; ++i) {
+      MidiButton button = controller.getButtonNamed("["+(i+1)+",1]");
+      
+      if (i < pageCount) {
+        button.setColor(pageExistColor);
+      } else {
+        button.setColor(pageBGColor);
+      }
+    }
 
+    MidiButton button = controller.getButtonNamed("["+(activePage+1)+",1]");
+    button.setColor(pageActiveColor);
+  }
+  void resizeSequenceToPages(int pages) {
+    activeSequence.resize(pages);
+  }
 
 
   public SequencerContext(PApplet parent, MidiController controller) {
@@ -316,6 +361,7 @@ public class SequencerContext extends ControllerContext
     }
   }
 
+  boolean playPages = false;
 
 
   public void attach() {
@@ -326,6 +372,15 @@ public class SequencerContext extends ControllerContext
     bindSliderToOSCAction("Master Level", "master");
     bindButtonToOSCAction("Tap Tempo",    "tap");
     bindButtonToOSCAction("Nudge -",      "nudge-");
+
+    for(int i=0; i<8; ++i) {
+      int layerNumber = i+1;
+      bindKnobToOSCAction("Track Knob "+layerNumber, "comp"+i);
+      for(int k=0; k<8; ++k) {
+        bindKnobToOSCAction("Device "+layerNumber+" Control "+(k+1), "layer"+i+"_"+k);
+      }
+    }
+
 
     // Toggle activating either different
     bindButton("Sends", new NoteOnCallback() {
@@ -340,15 +395,29 @@ public class SequencerContext extends ControllerContext
       }
     });
 
+
+    bindButton("Play", new NoteOnCallback() {
+      public void noteOn(MidiButton button) {
+        playPages = true;
+      }
+    }, new NoteOffCallback() {
+      public void noteOff(MidiButton button) { 
+        playPages = false;
+      }
+    });
+
     for(int i=0; i<8; ++i) {
       int number = i+1;
-      EnableLayerSequenceHandler handler = new EnableLayerSequenceHandler(i);
-      bindButton("Activator " + number, handler, handler);
-      bindButtonToOSCAction("Solo " + number,   "solo"+i+"on", "solo"+i+"off");
-      bindButtonToOSCAction("Record " + number, "blank"+i+"on", "blank"+i+"off");
-      //bindButtonToOSCAction("AB " + number, );
-    }
+      EnableLayerSequenceHandler activatorHandler = new EnableLayerSequenceHandler(i);
+      ClipsSoloHandler           soloHandler      = new ClipsSoloHandler(i);
+      ClipsBlankHandler          blankHandler     = new ClipsBlankHandler(i);
 
+      bindButton("Activator " + number, activatorHandler, activatorHandler);
+      bindButton("Solo "      + number, soloHandler,      soloHandler);
+      bindButton("Record "    + number, blankHandler,     blankHandler);
+
+      bindSlider("Level "     + number, new ClipsChangeOpacityHandler(i));
+    }
 
     // Bind sequence/palette handler buttons
     for(int i=0; i<8; ++i) {
@@ -361,13 +430,6 @@ public class SequencerContext extends ControllerContext
       ActiveBankHandler handler = new ActiveBankHandler(i);
       bindButton("Scene Launch " + (i+1), handler, handler);
     }
-    
-
-    // Attach layer opacity to sliders
-    bindSlider("Level 1", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(0, t); } });
-    bindSlider("Level 2", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(1, t); } });
-    bindSlider("Level 3", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(2, t); } });
-    bindSlider("Level 4", new SliderCallback() { public void change(MidiSlider slider, float t) { clips.setOpacity(3, t); } });
 
     beatCounter = (BeatCounterContext)getContext("BeatCounter");
   }
@@ -377,41 +439,58 @@ public class SequencerContext extends ControllerContext
     sequenceButtons[lastBeatIndex].setColor(seqBGColor);
 
     for(int i=0; i<16; ++i) {
-      ClipEvent clipEvent = activeSequence.clipEvents.get(i + activePage*16);
-      if(clipEvent.clips.contains(activeClipIndex)) {
-        sequenceButtons[i].setColor(seqActiveColor);
-      } else {
-        sequenceButtons[i].setColor(seqBGColor);
+      ClipEvent clipEvent = activeSequence.getClip(i + activePage*16);
+      if(clipEvent != null) {
+        if(clipEvent.clips.contains(activeClipIndex)) {
+          sequenceButtons[i].setColor(seqActiveColor);
+        } else {
+          sequenceButtons[i].setColor(seqBGColor);
+        }
       }
     }
+
+
 
 
     int beatIndex = beatCounter.getBeatIndex(4);
     sequenceButtons[beatIndex].setColor(seqCurrentBeatColor);
 
     if (beatIndex != lastBeatIndex) {
-      ClipEvent lastClipEvents = activeSequence.clipEvents.get(lastBeatIndex + activePage*16);
-      ClipEvent clipEvent      = activeSequence.clipEvents.get(beatIndex + activePage*16);
+      ClipEvent lastClipEvents = activeSequence.getClip(lastBeatIndex + activePage*16);
+
+      if (playPages && beatIndex == 0) {
+        activePage += 1;
+        activePage %= activeSequence.getPageCount();
+        updatePageColors();
+      }
+
+      ClipEvent clipEvent      = activeSequence.getClip(beatIndex + activePage*16);
 
       for(int i=0; i<16; ++i) {
         clipButtons[i].setColor(i == activeClipIndex? clipActiveColor : clipBGColor);
       }
 
       // Disable any previously active clips that are not active any longer
-      for(Integer clipIndex : lastClipEvents.clips) {
-        if (!clipEvent.clips.contains(clipIndex)) {
+      if(lastClipEvents != null) {
+        for(Integer clipIndex : lastClipEvents.clips) {
+          if (!clipEvent.clips.contains(clipIndex)) {
+            int row = clipIndex / 4;
+            clips.triggerOnActive(row, -1);
+          }
+        }
+      } 
+
+
+      // Activate all new clips (redundant ones are handled by dirty flags)
+      if(clipEvent != null) {
+        for(Integer clipIndex : clipEvent.clips) {
           int row = clipIndex / 4;
-          clips.triggerOnActive(row, -1);
+          int col = clipIndex % 4;
+          clips.triggerOnActive(row, col);
+          clipButtons[clipIndex].setColor(clipHighlightColor);
         }
       }
 
-      // Activate all new clips (redundant ones are handled by dirty flags)
-      for(Integer clipIndex : clipEvent.clips) {
-        int row = clipIndex / 4;
-        int col = clipIndex % 4;
-        clips.triggerOnActive(row, col);
-        clipButtons[clipIndex].setColor(clipHighlightColor);
-      }
     }
 
     lastBeatIndex = beatIndex;
@@ -424,10 +503,11 @@ public class SequencerContext extends ControllerContext
   }
 
   void bindButtons() {
-    for(int i=1; i<=8; ++i) {
-      MidiButton button = controller.getButtonNamed("["+i+",1]");
+    for(int i=0; i<8; ++i) {
+      PageButtonHandler handler = new PageButtonHandler(i);
+      MidiButton button = bindButton("["+(i+1)+",1]", handler, handler);
       button.setColor(pageBGColor);
-      pageButtons[i-1] = button;
+      pageButtons[i] = button;
     }
     for(int y=0; y<4; ++y) {
       for(int x=0; x<4; ++x) {

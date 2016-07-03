@@ -10,6 +10,96 @@
   "faders": [
     { "name": "ab",     "action": { "osc": "arena:/composition/cross/values",         "type":"float" } },
     { "name": "master", "action": { "osc": "arena:/composition/video/fadeout/values", "type":"float" } },
+
+    
+
+    { "name": "layer0opacity", "action": { "osc": "arena:/layer5/video/fadeout/values", "type":"float" } },
+    { "name": "layer1opacity", "action": { "osc": "arena:/layer7/video/fadeout/values", "type":"float" } },
+    { "name": "layer2opacity", "action": { "osc": "arena:/layer8/video/fadeout/values", "type":"float" } },
+    { "name": "layer3opacity", "action": { "osc": "arena:/layer9/video/fadeout/values", "type":"float" } },
+
+
+    { "name": "comp0", "action": { "osc": "arena:/composition/link1/values", "type":"float" } },
+    { "name": "comp1", "action": { "osc": "arena:/composition/link2/values", "type":"float" } },
+    { "name": "comp2", "action": { "osc": "arena:/composition/link3/values", "type":"float" } },
+    { "name": "comp3", "action": { "osc": "arena:/composition/link4/values", "type":"float" } },
+    { "name": "comp4", "action": { "osc": "arena:/composition/link5/values", "type":"float" } },
+    { "name": "comp5", "action": { "osc": "arena:/composition/link6/values", "type":"float" } },
+    { "name": "comp6", "action": { "osc": "arena:/composition/link7/values", "type":"float" } },
+    { "name": "comp7", "action": { "osc": "arena:/composition/link8/values", "type":"float" } },
+
+    { "name": "layer0_0", "action": { "osc": "arena:/layer1/link1/values", "type":"float" } },
+    { "name": "layer0_1", "action": { "osc": "arena:/layer1/link2/values", "type":"float" } },
+    { "name": "layer0_2", "action": { "osc": "arena:/layer1/link3/values", "type":"float" } },
+    { "name": "layer0_3", "action": { "osc": "arena:/layer1/link4/values", "type":"float" } },
+    { "name": "layer0_4", "action": { "osc": "arena:/layer1/link5/values", "type":"float" } },
+    { "name": "layer0_5", "action": { "osc": "arena:/layer1/link6/values", "type":"float" } },
+    { "name": "layer0_6", "action": { "osc": "arena:/layer1/link7/values", "type":"float" } },
+    { "name": "layer0_7", "action": { "osc": "arena:/layer1/link8/values", "type":"float" } },
+
+    { "name": "layer1_0", "action": { "osc": "arena:/layer2/link1/values", "type":"float" } },
+    { "name": "layer1_1", "action": { "osc": "arena:/layer2/link2/values", "type":"float" } },
+    { "name": "layer1_2", "action": { "osc": "arena:/layer2/link3/values", "type":"float" } },
+    { "name": "layer1_3", "action": { "osc": "arena:/layer2/link4/values", "type":"float" } },
+    { "name": "layer1_4", "action": { "osc": "arena:/layer2/link5/values", "type":"float" } },
+    { "name": "layer1_5", "action": { "osc": "arena:/layer2/link6/values", "type":"float" } },
+    { "name": "layer1_6", "action": { "osc": "arena:/layer2/link7/values", "type":"float" } },
+    { "name": "layer1_7", "action": { "osc": "arena:/layer2/link8/values", "type":"float" } },
+
+    { "name": "layer2_0", "action": { "osc": "arena:/layer3/link1/values", "type":"float" } },
+    { "name": "layer2_1", "action": { "osc": "arena:/layer3/link2/values", "type":"float" } },
+    { "name": "layer2_2", "action": { "osc": "arena:/layer3/link3/values", "type":"float" } },
+    { "name": "layer2_3", "action": { "osc": "arena:/layer3/link4/values", "type":"float" } },
+    { "name": "layer2_4", "action": { "osc": "arena:/layer3/link5/values", "type":"float" } },
+    { "name": "layer2_5", "action": { "osc": "arena:/layer3/link6/values", "type":"float" } },
+    { "name": "layer2_6", "action": { "osc": "arena:/layer3/link7/values", "type":"float" } },
+    { "name": "layer2_7", "action": { "osc": "arena:/layer3/link8/values", "type":"float" } },
+
+    { "name": "layer3_0", "action": { "osc": "arena:/layer4/link1/values", "type":"float" } },
+    { "name": "layer3_1", "action": { "osc": "arena:/layer4/link2/values", "type":"float" } },
+    { "name": "layer3_2", "action": { "osc": "arena:/layer4/link3/values", "type":"float" } },
+    { "name": "layer3_3", "action": { "osc": "arena:/layer4/link4/values", "type":"float" } },
+    { "name": "layer3_4", "action": { "osc": "arena:/layer4/link5/values", "type":"float" } },
+    { "name": "layer3_5", "action": { "osc": "arena:/layer4/link6/values", "type":"float" } },
+    { "name": "layer3_6", "action": { "osc": "arena:/layer4/link7/values", "type":"float" } },
+    { "name": "layer3_7", "action": { "osc": "arena:/layer4/link8/values", "type":"float" } },
+
+
+    { "name": "layer4_0", "action": { "osc": "arena:/layer5/link1/values", "type":"float" } },
+    { "name": "layer4_1", "action": { "osc": "arena:/layer5/link2/values", "type":"float" } },
+    { "name": "layer4_2", "action": { "osc": "arena:/layer5/link3/values", "type":"float" } },
+    { "name": "layer4_3", "action": { "osc": "arena:/layer5/link4/values", "type":"float" } },
+    { "name": "layer4_4", "action": { "osc": "arena:/layer5/link5/values", "type":"float" } },
+    { "name": "layer4_5", "action": { "osc": "arena:/layer5/link6/values", "type":"float" } },
+    { "name": "layer4_6", "action": { "osc": "arena:/layer5/link7/values", "type":"float" } },
+    { "name": "layer4_7", "action": { "osc": "arena:/layer5/link8/values", "type":"float" } },
+
+    { "name": "layer5_0", "action": { "osc": "arena:/layer6/link1/values", "type":"float" } },
+    { "name": "layer5_1", "action": { "osc": "arena:/layer6/link2/values", "type":"float" } },
+    { "name": "layer5_2", "action": { "osc": "arena:/layer6/link3/values", "type":"float" } },
+    { "name": "layer5_3", "action": { "osc": "arena:/layer6/link4/values", "type":"float" } },
+    { "name": "layer5_4", "action": { "osc": "arena:/layer6/link5/values", "type":"float" } },
+    { "name": "layer5_5", "action": { "osc": "arena:/layer6/link6/values", "type":"float" } },
+    { "name": "layer5_6", "action": { "osc": "arena:/layer6/link7/values", "type":"float" } },
+    { "name": "layer5_7", "action": { "osc": "arena:/layer6/link8/values", "type":"float" } },
+
+    { "name": "layer6_0", "action": { "osc": "arena:/layer7/link1/values", "type":"float" } },
+    { "name": "layer6_1", "action": { "osc": "arena:/layer7/link2/values", "type":"float" } },
+    { "name": "layer6_2", "action": { "osc": "arena:/layer7/link3/values", "type":"float" } },
+    { "name": "layer6_3", "action": { "osc": "arena:/layer7/link4/values", "type":"float" } },
+    { "name": "layer6_4", "action": { "osc": "arena:/layer7/link5/values", "type":"float" } },
+    { "name": "layer6_5", "action": { "osc": "arena:/layer7/link6/values", "type":"float" } },
+    { "name": "layer6_6", "action": { "osc": "arena:/layer7/link7/values", "type":"float" } },
+    { "name": "layer6_7", "action": { "osc": "arena:/layer7/link8/values", "type":"float" } },
+
+    { "name": "layer7_0", "action": { "osc": "arena:/layer8/link1/values", "type":"float" } },
+    { "name": "layer7_1", "action": { "osc": "arena:/layer8/link2/values", "type":"float" } },
+    { "name": "layer7_2", "action": { "osc": "arena:/layer8/link3/values", "type":"float" } },
+    { "name": "layer7_3", "action": { "osc": "arena:/layer8/link4/values", "type":"float" } },
+    { "name": "layer7_4", "action": { "osc": "arena:/layer8/link5/values", "type":"float" } },
+    { "name": "layer7_5", "action": { "osc": "arena:/layer8/link6/values", "type":"float" } },
+    { "name": "layer7_6", "action": { "osc": "arena:/layer8/link7/values", "type":"float" } },
+    { "name": "layer7_7", "action": { "osc": "arena:/layer8/link8/values", "type":"float" } },
   ],
 
   "buttons": [
@@ -52,6 +142,7 @@
     { "name": "blank6off", "action": { "osc": "arena:/layer7/bypassed", "type":"int", "value": 0 } },
     { "name": "blank7off", "action": { "osc": "arena:/layer8/bypassed", "type":"int", "value": 0 } }
   ],
+
 
   "pages": {
     "numberOfBanks": 1

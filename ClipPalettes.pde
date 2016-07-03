@@ -7,6 +7,8 @@ public class ClipPalleteRowLayer {
 
   OSCAction[] connectCol;
   OSCAction   setLayerOpacity;
+  OSCAction   blankLayer;
+  OSCAction   soloLayer;
 
   int         lastActive = -1;
   boolean     wasOn = false;
@@ -30,6 +32,9 @@ public class ClipPalleteRowLayer {
     }
 
     setLayerOpacity = oscConfig.newAction("arena:/layer"+layer+"/video/opacity/values", 1.0);
+
+    blankLayer = oscConfig.newAction("arena:/layer"+layer+"/bypassed", 0);
+    soloLayer  = oscConfig.newAction("arena:/layer"+layer+"/solo", 0);
   }
 
   public void trigger(int col, float layerOpacity) {
@@ -55,6 +60,13 @@ public class ClipPalleteRowLayer {
       }
     }
   }
+
+  public void blankRow(boolean blank) {
+    blankLayer.sendInt(blank ? 1 : 0);
+  }
+  public void soloRow(boolean solo) {
+    soloLayer.sendInt(solo ? 1 : 0);
+  }
 }
 
 public class ClipPalleteRow {
@@ -72,6 +84,14 @@ public class ClipPalleteRow {
   public void setDirty() {
     for(ClipPalleteRowLayer layer : layers)
       layer.setDirty();
+  }
+  public void blankRow(boolean blank) {
+    for(ClipPalleteRowLayer layer : layers)
+      layer.blankRow(blank);
+  }
+  public void soloRow(boolean solo) {
+    for(ClipPalleteRowLayer layer : layers)
+      layer.soloRow(solo);
   }
 }
 
@@ -109,6 +129,13 @@ public class ClipPallete {
     }
   }
 
+  public void blankRow(int row, boolean blank) {
+    rows[row].blankRow(blank);
+  }
+  public void soloRow(int row, boolean solo) {
+    rows[row].soloRow(solo);
+  }
+
 }
 
 public class ClipPalletes {
@@ -133,6 +160,19 @@ public class ClipPalletes {
   // 8 palettes per bank
   public int getBankCount() {
     return (int)ceil(palettes.size() / 8.0);
+  }
+
+  public void soloRow(int row, boolean solo) {
+    if(activePalette >= 0 && activePalette < palettes.size()) {
+      ClipPallete palette = palettes.get(activePalette);
+      palette.soloRow(row, solo);
+    }
+  }
+  public void blankRow(int row, boolean blank) {
+    if(activePalette >= 0 && activePalette < palettes.size()) {
+      ClipPallete palette = palettes.get(activePalette);
+      palette.blankRow(row, blank);
+    }
   }
 
   public void setActivePalette(int paletteIndex) {
